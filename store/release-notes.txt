@@ -1,0 +1,6 @@
+Initial release of TERCOM for Pebble Time 2 (Emery).
+- 3D wireframe topographic radar mesh with perspective contours
+- Accelerometer-responsive artificial horizon and pitch ladder
+- Yellow flight path reticle enclosing digital time
+- Altitude, compass heading, step counter, and battery telemetry complications
+- Wrist-flick active terrain flight animation

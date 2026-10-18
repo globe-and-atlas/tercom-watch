@@ -1,0 +1,10 @@
+TERCOM is an authentic 1970s phosphor vector CRT topographic guidance watchface for the Pebble Time 2 (Emery), inspired by early cruise missile terrain-contour matching and Evans & Sutherland visual flight simulation HUDs.
+
+FEATURES:
+- 3D Topographic Wireframe Mesh: Receding perspective mountain ridges and valleys rendered in high-contrast neon vector green (GColorMalachite and GColorIslamicGreen).
+- Dynamic Pitch Ladder & Artificial Horizon: Real-time artificial horizon and pitch ladder responsive to wrist tilt and accelerometer.
+- Flight-Path Reticle & Vector Digital Clock: Bold yellow flight director reticle framing hours and minutes in clean digital typography. Supports 12-hour and 24-hour modes.
+- Full Flight Complications:
+  * Top bar: 'TERCOM: TRK-04' mission track and barometric / cruise altitude ('ALT: 1,280FT').
+  * Bottom bar: Live compass heading ('HDG: 284°'), daily step count ('STP: 9,210'), and battery percentage ('BAT: 86%').
+- Power-Optimized Active Flight Mode: Flick your wrist to trigger a 5-second 30 FPS active terrain scroll sequence with banking horizon, returning to 1-minute static redraws when still to maintain 7+ day battery life.

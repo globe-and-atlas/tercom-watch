@@ -1,0 +1,28 @@
+{
+  "name": "tercom-watch",
+  "author": "Daniel Bally",
+  "version": "1.0.0",
+  "keywords": [
+    "pebble-app"
+  ],
+  "private": true,
+  "dependencies": {},
+  "pebble": {
+    "displayName": "TERCOM",
+    "uuid": "a05c6357-104a-4090-bba4-0a1cb7606927",
+    "sdkVersion": "3",
+    "enableMultiJS": false,
+    "targetPlatforms": [
+      "emery"
+    ],
+    "watchapp": {
+      "watchface": true
+    },
+    "capabilities": [
+      "health"
+    ],
+    "resources": {
+      "media": []
+    }
+  }
+}
