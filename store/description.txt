@@ -1,10 +1,21 @@
 TERCOM is an authentic 1970s phosphor vector CRT topographic guidance watchface for the Pebble Time 2 (Emery), inspired by early cruise missile terrain-contour matching and Evans & Sutherland visual flight simulation HUDs.
 
 FEATURES:
-- 3D Topographic Wireframe Mesh: Receding perspective mountain ridges and valleys rendered in high-contrast neon vector green (GColorMalachite and GColorIslamicGreen).
-- Dynamic Pitch Ladder & Artificial Horizon: Real-time artificial horizon and pitch ladder responsive to wrist tilt and accelerometer.
+- 5 Selectable Terrain Bundle Tracks (Double-tap wrist to cycle & save):
+  * TRK-01 CRAGS: The beloved original dual craggy mountain peaks with center pass.
+  * TRK-02 CANYON: Sheer gorge corridor with flat riverbed canyon floor.
+  * TRK-03 DUNES: Sinuous transverse sand dunes with shifting ripple harmonics.
+  * TRK-04 CALDERA: Sunken volcanic crater basin with elevated rim and central cone.
+  * TRK-05 ALPINE: Sawtooth multi-summit alpine massif with jagged ridgelines.
+- Dual-Telemetry 6-Line Altitude Ladder:
+  * Left side: Continuous hour reference scale centered on the current hour.
+  * Right side: 5-minute telemetry intervals (:25..:00 or :55..:30).
+  * Top HUD director chevron and horizontal baseline ticks.
 - Flight-Path Reticle & Vector Digital Clock: Bold yellow flight director reticle framing hours and minutes in clean digital typography. Supports 12-hour and 24-hour modes.
 - Full Flight Complications:
-  * Top bar: 'TERCOM: TRK-04' mission track and barometric / cruise altitude ('ALT: 1,280FT').
+  * Top bar: Active track telemetry ('TRK-01:CRAGS') and barometric cruise altitude ('ALT: 1,280FT').
   * Bottom bar: Live compass heading ('HDG: 284°'), daily step count ('STP: 9,210'), and battery percentage ('BAT: 86%').
-- Power-Optimized Active Flight Mode: Flick your wrist to trigger a 5-second 30 FPS active terrain scroll sequence with banking horizon, returning to 1-minute static redraws when still to maintain 7+ day battery life.
+- Gesture & Battery Optimization:
+  * Single wrist flick: Wakes up 4.5s 25 FPS active forward flight animation with live horizon banking.
+  * Quick double wrist flick: Cycles to next terrain track with haptic pulse and saves to flash.
+  * Idle: 1-minute static redraws when still to maintain 7+ day battery life.

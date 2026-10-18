@@ -18,18 +18,19 @@ Build, test, and publish **TERCOM** — a 1970s phosphor vector CRT topographic 
 - [x] `watchface/package.json` specifies `"watchface": true` inside `"watchapp"`
 - [x] `watchface/src/c/tercom_renderer.c` and renderer modules compile with `pebble build` for emery with zero errors
 - [x] 3D wireframe terrain mesh renders at least 8 perspective contour ridges in `GColorMalachite` and `GColorIslamicGreen`
-- [x] Artificial horizon line and pitch ladder render in upper viewport
+- [x] 5 selectable terrain models bundled: CRAGS (the original favorite!), CANYON, DUNES, CALDERA, and ALPINE
+- [x] Double-tap wrist gesture cycles active terrain track with haptic feedback and saves permanently to watch flash
+- [x] Artificial horizon line and 6-line altitude gauge render in upper viewport
+- [x] 6-line altitude gauge displays hours reference on left and 5-minute increments on right
 - [x] Accelerometer service updates artificial horizon pitch and roll angles
 - [x] Reticle ring renders in `GColorChromeYellow` / `GColorYellow` enclosing digital time digits
 - [x] Time displays hours and minutes in 12h or 24h format matching user watch settings
-- [x] Top telemetry bar displays `TERCOM: TRK-04` and altitude readout
+- [x] Top telemetry bar displays active track (e.g. `TRK-01:CRAGS`) and altitude readout
 - [x] Bottom telemetry bar displays heading `HDG`, step count `STEPS`, and battery level `BATT`
 - [x] Wrist flick / tap event triggers 5-second 30 FPS active terrain scroll animation
 - [x] Watchface idles in 1-minute tick mode when wrist is still to conserve battery
-- [x] Automated script installs watchface on Emery emulator and captures native screenshots
-- [x] Store metadata (`description.txt`, `release-notes.txt`, small and large icons) are generated
-- [x] `execution/publish_release.py` runs dry-run validation successfully
-- [x] Published to RePebble Appstore with active store listing
+- [x] Automated script installs watchface on Emery emulator and captures native screenshots for all 5 terrains
+- [x] Store metadata and 5-screenshot gallery published to RePebble Appstore
 
 ## Progress Log
 
@@ -38,11 +39,17 @@ Build, test, and publish **TERCOM** — a 1970s phosphor vector CRT topographic 
 - Verified `.gitignore` covers `.lock-waf*`, `.tmp/`, `dist/`, `build/`.
 - Updated `SESSION.md` and initialized ISC-compliant `task.md`.
 
-### 2026-10-18 10:00 — Implementation, Testing & RePebble Release
-- Developed C source code (`watchface/src/c/config.h`, `watchface/src/c/tercom_renderer.h`, `watchface/src/c/tercom_renderer.c`, `watchface/src/c/main.c`).
-- Verified zero-warning compilation on Pebble SDK 4.33.1 (ARM Cortex-M4) using only 3.4 KB RAM footprint (127 KB heap free).
-- Booted Emery emulator, verified rendering of 3D topographic wireframe mesh, pitch ladder, and yellow reticle.
-- Captured native 200×228 screenshot `store/emery_tercom.png`.
-- Generated 28×28 and 144×144 vector store icons with `execution/create_store_assets.py`.
-- Verified dry-run and successfully executed `python3 execution/publish_release.py`.
-- App published live to RePebble Appstore: `https://apps.rePebble.com/c6f081e1607448bf92df7de4`.
+### 2026-10-18 10:00 — v1.0.0 Release
+- Developed C source code (`config.h`, `tercom_renderer.h`, `tercom_renderer.c`, `main.c`).
+- Verified zero-warning compilation on Pebble SDK 4.33.1.
+- Booted Emery emulator, verified rendering and published to RePebble.
+
+### 2026-10-18 10:10 — v1.0.1 Telemetry & Mountain Horizon Alignment
+- Redesigned 6-line gauge to reference time (hours on left, 5-minute increments on right).
+- Modeled edge-to-edge terrain with peaks rising cleanly above the horizon line.
+
+### 2026-10-18 10:19 — v1.0.2 The 5-Terrain Bundle Release
+- Added 5 distinct terrain models: TRK-01 CRAGS (the original), TRK-02 CANYON, TRK-03 DUNES, TRK-04 CALDERA, and TRK-05 ALPINE.
+- Implemented double-tap wrist gesture with short vibration pulse and flash persistence (`STORAGE_KEY_TERRAIN`).
+- Captured emulator screenshots for all 5 tracks.
+- Published v1.0.2 to RePebble with updated 5-screenshot carousel.

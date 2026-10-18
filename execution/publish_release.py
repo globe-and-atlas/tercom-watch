@@ -17,6 +17,10 @@ def main():
 
     screenshots = [
         str(store / "emery_tercom.png"),
+        str(store / "emery_canyon.png"),
+        str(store / "emery_dunes.png"),
+        str(store / "emery_caldera.png"),
+        str(store / "emery_alpine.png"),
     ]
 
     command = [

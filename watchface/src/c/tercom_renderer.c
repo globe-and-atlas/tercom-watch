@@ -5,6 +5,17 @@ static GFont s_font_time;
 static GFont s_font_telemetry;
 static GFont s_font_small;
 
+const char* tercom_terrain_track_name(TerrainType type) {
+  switch (type) {
+    case TERRAIN_CRAGS:   return "TRK-01:CRAGS";
+    case TERRAIN_CANYON:  return "TRK-02:CANYON";
+    case TERRAIN_DUNES:   return "TRK-03:DUNES";
+    case TERRAIN_CALDERA: return "TRK-04:CALDERA";
+    case TERRAIN_ALPINE:  return "TRK-05:ALPINE";
+    default:              return "TRK-01:CRAGS";
+  }
+}
+
 void tercom_renderer_init(void) {
   s_font_time = fonts_get_system_font(FONT_KEY_LECO_28_LIGHT_NUMBERS);
   s_font_telemetry = fonts_get_system_font(FONT_KEY_GOTHIC_14_BOLD);
@@ -176,18 +187,128 @@ static void draw_reticle_and_time(GContext *ctx, GPoint center, const TercomTele
 }
 
 /*
- * 3D Topographic Wireframe Terrain Mesh:
- * Dense 21-column by 12-row wireframe elevation model evoking Evans & Sutherland flight sim HUD.
- * Models jagged mountain peaks on left and right, with continuous perspective contour lines.
+ * Compute elevation for each of the 5 selectable terrain bundle models:
+ * 0: CRAGS   - Original v1.0.1 dual mountain peaks & pass
+ * 1: CANYON  - Sheer gorge corridor / trench
+ * 2: DUNES   - Sinuous transverse sand dunes & ripples
+ * 3: CALDERA - Volcanic crater rim & central cone
+ * 4: ALPINE  - Sawtooth multi-summit alpine massif
  */
-static void draw_terrain_mesh(GContext *ctx, int16_t scroll_phase) {
+static int16_t compute_elevation(TerrainType type, int c, int r, int phase_step, int m_weight) {
+  switch (type) {
+    case TERRAIN_CANYON: {
+      // Sheer gorge: high plateaus on flanks, steep drop to flat trench floor
+      int16_t h_wall = 0;
+      if (c <= 4) {
+        h_wall = 34 - (c * 2);
+      } else if (c == 5) {
+        h_wall = 16;
+      } else if (c == 15) {
+        h_wall = 16;
+      } else if (c >= 16) {
+        h_wall = 26 + ((c - 16) * 2);
+      } else {
+        int d_center = c - 10;
+        if (d_center < 0) d_center = -d_center;
+        h_wall = (d_center <= 2) ? 1 : 4;
+      }
+      return (h_wall * m_weight) / 30;
+    }
+
+    case TERRAIN_DUNES: {
+      // Sinuous transverse sand dunes & ripples shifting with forward motion
+      int dune_phase = (c * 3 + r * 5 + phase_step * 2) % 16;
+      static const int8_t s_dune_wave[16] = {
+        0, 3, 7, 12, 18, 24, 28, 24, 18, 12, 6, 2, 0, 0, 1, 1
+      };
+      int16_t h_dune = s_dune_wave[dune_phase];
+      int cross_phase = (c * 2 - r * 3 + 16) % 8;
+      static const int8_t s_cross[8] = { 0, 2, 5, 7, 6, 3, 1, 0 };
+      h_dune += s_cross[cross_phase];
+      return (h_dune * (m_weight + 12)) / 36;
+    }
+
+    case TERRAIN_CALDERA: {
+      // Sunken volcanic crater basin & central cone
+      int dc = c - 10;
+      int dr = (r - 3) * 2;
+      int dist_sq = dc * dc + dr * dr;
+      int16_t h_crater = 0;
+      if (dist_sq <= 3) {
+        h_crater = 20 - dist_sq * 4;
+      } else if (dist_sq >= 16 && dist_sq <= 54) {
+        int d_rim = dist_sq - 32;
+        if (d_rim < 0) d_rim = -d_rim;
+        h_crater = (18 - d_rim) * 2;
+        if (h_crater < 0) h_crater = 0;
+      } else {
+        h_crater = 3;
+      }
+      return (h_crater * m_weight) / 28;
+    }
+
+    case TERRAIN_ALPINE: {
+      // Sawtooth multi-summit alpine massif with jagged cols
+      int16_t h_alpine = 0;
+      static const int s_peaks[4] = { 3, 8, 13, 18 };
+      static const int16_t s_pheights[4] = { 32, 42, 38, 30 };
+      for (int p = 0; p < 4; p++) {
+        int dp = c - s_peaks[p];
+        if (dp < 0) dp = -dp;
+        if (dp <= 3) {
+          int16_t ph = s_pheights[p] - dp * 10;
+          if (ph > h_alpine) h_alpine = ph;
+        }
+      }
+      return (h_alpine * m_weight) / 36;
+    }
+
+    case TERRAIN_CRAGS:
+    default: {
+      // The Original: dual craggy peaks (col 5 & 16) + foothills
+      int d_left = c - 5;
+      if (d_left < 0) d_left = -d_left;
+      int16_t h_left = 0;
+      if (d_left <= 5) {
+        h_left = ((5 - d_left) * (5 - d_left) * 36) / 25;
+      }
+      int d_flank = c - 2;
+      if (d_flank < 0) d_flank = -d_flank;
+      if (d_flank <= 3) {
+        h_left += (3 - d_flank) * 3;
+      }
+
+      int d_right = c - 16;
+      if (d_right < 0) d_right = -d_right;
+      int16_t h_right = 0;
+      if (d_right <= 5) {
+        h_right = ((5 - d_right) * (5 - d_right) * 40) / 25;
+      }
+      int d_sh = c - 19;
+      if (d_sh < 0) d_sh = -d_sh;
+      if (d_sh <= 3) {
+        h_right += (3 - d_sh) * 4;
+      }
+
+      static const int8_t s_roll[8] = { 2, 4, 6, 5, 2, 0, 1, 3 };
+      int wave_idx = (c + phase_step + r) % 8;
+      int16_t h_mid = s_roll[wave_idx];
+
+      return ((h_left + h_right) * m_weight) / 36 + h_mid;
+    }
+  }
+}
+
+/*
+ * 3D Topographic Wireframe Terrain Mesh Renderer:
+ * Computes edge-to-edge perspective grid using the active TerrainType profile.
+ */
+static void draw_terrain_mesh(GContext *ctx, int16_t scroll_phase, TerrainType terrain_type) {
   GPoint pts[NUM_DEPTH_ROWS][NUM_GRID_COLS];
   int center_x = SCREEN_WIDTH / 2;
   int phase_step = scroll_phase / 32;
 
   // Mountain peak height weights across depth rows:
-  // Peaks occur in rows 0..5 (midground/horizon), rising above horizon.
-  // Foreground rows (6..11) smooth out into approach grid.
   static const int16_t s_mountain_weight[NUM_DEPTH_ROWS] = {
     16, 26, 36, 30, 22, 14, 8, 3, 1, 0, 0, 0
   };
@@ -205,44 +326,8 @@ static void draw_terrain_mesh(GContext *ctx, int16_t scroll_phase) {
     int16_t m_weight = s_mountain_weight[r];
 
     for (int c = 0; c < NUM_GRID_COLS; c++) {
-      // Lateral X coordinate across screen width
       int16_t x = center_x - half_w + ((2 * half_w * c) / (NUM_GRID_COLS - 1));
-
-      // 1. Left Mountain Range (peak around column 5)
-      int d_left = c - 5;
-      if (d_left < 0) d_left = -d_left;
-      int16_t h_left = 0;
-      if (d_left <= 5) {
-        h_left = ((5 - d_left) * (5 - d_left) * 36) / 25;
-      }
-      // Sub-ridge on left flank (col 2)
-      int d_flank = c - 2;
-      if (d_flank < 0) d_flank = -d_flank;
-      if (d_flank <= 3) {
-        h_left += (3 - d_flank) * 3;
-      }
-
-      // 2. Right Mountain Range (sharp craggy summit around column 16)
-      int d_right = c - 16;
-      if (d_right < 0) d_right = -d_right;
-      int16_t h_right = 0;
-      if (d_right <= 5) {
-        h_right = ((5 - d_right) * (5 - d_right) * 40) / 25;
-      }
-      // Secondary shoulder on right (col 19)
-      int d_sh = c - 19;
-      if (d_sh < 0) d_sh = -d_sh;
-      if (d_sh <= 3) {
-        h_right += (3 - d_sh) * 4;
-      }
-
-      // 3. Rolling foothills & approach wave
-      static const int8_t s_roll[8] = { 2, 4, 6, 5, 2, 0, 1, 3 };
-      int wave_idx = (c + phase_step + r) % 8;
-      int16_t h_mid = s_roll[wave_idx];
-
-      // Calculate total elevation: peaks rise up cleanly above horizon
-      int16_t elev = ((h_left + h_right) * m_weight) / 36 + h_mid;
+      int16_t elev = compute_elevation(terrain_type, c, r, phase_step, m_weight);
       int16_t y = base_y - elev;
 
       pts[r][c] = GPoint(x, y);
@@ -261,7 +346,6 @@ static void draw_terrain_mesh(GContext *ctx, int16_t scroll_phase) {
 
   // Draw longitudinal perspective grid lines (running towards vanishing point)
   for (int c = 0; c < NUM_GRID_COLS; c++) {
-    // Highlight peak spines and center grid lines
     GColor line_color = (c == 5 || c == 16 || c == 10 || c == 0 || c == NUM_GRID_COLS - 1)
                         ? COLOR_TERRAIN_PRIMARY
                         : COLOR_TERRAIN_SECONDARY;
@@ -276,14 +360,14 @@ static void draw_terrain_mesh(GContext *ctx, int16_t scroll_phase) {
 static void draw_telemetry_bars(GContext *ctx, GRect bounds, const TercomTelemetry *telemetry) {
   graphics_context_set_text_color(ctx, COLOR_TELEMETRY);
 
-  // Top header: TERCOM: TRK-04 (Left) | ALT: 1,280FT (Right)
+  // Top header: TRK-01:CRAGS (Left) | ALT: 1,280FT (Right)
   char top_l_str[24];
   char top_r_str[24];
-  snprintf(top_l_str, sizeof(top_l_str), "TERCOM: TRK-04");
+  snprintf(top_l_str, sizeof(top_l_str), "%s", tercom_terrain_track_name(telemetry->terrain_type));
   snprintf(top_r_str, sizeof(top_r_str), "ALT: %ldFT", (long)telemetry->altitude_ft);
 
   graphics_draw_text(ctx, top_l_str, s_font_telemetry,
-                     GRect(4, 2, 110, 18),
+                     GRect(4, 2, 115, 18),
                      GTextOverflowModeWordWrap, GTextAlignmentLeft, NULL);
   graphics_draw_text(ctx, top_r_str, s_font_telemetry,
                      GRect(SCREEN_WIDTH - 90, 2, 86, 18),
@@ -324,8 +408,8 @@ void tercom_renderer_draw(GContext *ctx, GRect bounds, const TercomTelemetry *te
   // 1. Draw 6-line altitude time ladder & artificial horizon
   draw_altitude_time_gauge(ctx, center, telemetry->pitch_offset_px, telemetry->roll_angle, telemetry);
 
-  // 2. Draw 3D topographic wireframe terrain mesh
-  draw_terrain_mesh(ctx, telemetry->scroll_phase);
+  // 2. Draw 3D topographic wireframe terrain mesh with active terrain model
+  draw_terrain_mesh(ctx, telemetry->scroll_phase, telemetry->terrain_type);
 
   // 3. Draw central flight-path reticle and digital time
   draw_reticle_and_time(ctx, center, telemetry);

@@ -30,6 +30,9 @@
 #define NUM_DEPTH_ROWS          12
 #define NUM_GRID_COLS           21
 
+// Storage Keys
+#define STORAGE_KEY_TERRAIN     1
+
 // Test Fixtures (Can be overridden via -D or env)
 #ifndef TERCOM_TEST_MINUTE
 #define TERCOM_TEST_MINUTE -1
@@ -49,4 +52,8 @@
 
 #ifndef TERCOM_TEST_ALT
 #define TERCOM_TEST_ALT -1
+#endif
+
+#ifndef TERCOM_TEST_TERRAIN
+#define TERCOM_TEST_TERRAIN -1
 #endif

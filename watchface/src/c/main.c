@@ -9,6 +9,7 @@ static TercomTelemetry s_telemetry;
 static AppTimer *s_anim_timer = NULL;
 static int s_anim_frames_remaining = 0;
 static bool s_is_active_anim = false;
+static time_t s_last_tap_time = 0;
 
 static void update_telemetry(void) {
   // 1. Time
@@ -59,6 +60,11 @@ static void update_telemetry(void) {
   // Default flight cruise altitude based on steps progress
   s_telemetry.altitude_ft = 1200 + (s_telemetry.step_count % 800);
 #endif
+
+  // 6. Terrain Model
+#if TERCOM_TEST_TERRAIN >= 0
+  s_telemetry.terrain_type = (TerrainType)TERCOM_TEST_TERRAIN;
+#endif
 }
 
 static void anim_timer_callback(void *data) {
@@ -96,6 +102,16 @@ static void trigger_active_flight(void) {
 }
 
 static void handle_accel_tap(AccelAxisType axis, int32_t direction) {
+  time_t now = time(NULL);
+
+  // Quick double-tap (within 1 second) cycles to next terrain in the bundle!
+  if (now - s_last_tap_time <= 1) {
+    s_telemetry.terrain_type = (TerrainType)((s_telemetry.terrain_type + 1) % TERRAIN_COUNT);
+    persist_write_int(STORAGE_KEY_TERRAIN, s_telemetry.terrain_type);
+    vibes_short_pulse();
+  }
+  s_last_tap_time = now;
+
   trigger_active_flight();
 }
 
@@ -134,6 +150,16 @@ static void window_load(Window *window) {
   s_canvas_layer = layer_create(bounds);
   layer_set_update_proc(s_canvas_layer, canvas_update_proc);
   layer_add_child(window_layer, s_canvas_layer);
+
+  // Load saved terrain preference (defaults to original TERRAIN_CRAGS)
+  if (persist_exists(STORAGE_KEY_TERRAIN)) {
+    s_telemetry.terrain_type = (TerrainType)persist_read_int(STORAGE_KEY_TERRAIN);
+    if (s_telemetry.terrain_type >= TERRAIN_COUNT) {
+      s_telemetry.terrain_type = TERRAIN_CRAGS;
+    }
+  } else {
+    s_telemetry.terrain_type = TERRAIN_CRAGS;
+  }
 
   update_telemetry();
 
