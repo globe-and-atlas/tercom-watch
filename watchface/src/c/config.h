@@ -11,7 +11,7 @@
 #endif
 
 #ifndef HORIZON_Y
-#define HORIZON_Y 116
+#define HORIZON_Y 122
 #endif
 
 // Visual Palette (Emery 64-color)
@@ -27,8 +27,8 @@
 // Animation & Performance
 #define ACTIVE_ANIM_FPS         25
 #define ACTIVE_ANIM_DURATION_MS 4500
-#define NUM_DEPTH_ROWS          9
-#define NUM_GRID_COLS           11
+#define NUM_DEPTH_ROWS          12
+#define NUM_GRID_COLS           21
 
 // Test Fixtures (Can be overridden via -D or env)
 #ifndef TERCOM_TEST_MINUTE

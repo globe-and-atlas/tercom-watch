@@ -29,3 +29,4 @@
 
 - 2026-10-18 08:07 — commit: chore: initialize project from template
 - 2026-10-18 10:00 — release: TERCOM 1.0.0 published to RePebble (https://apps.rePebble.com/c6f081e1607448bf92df7de4)
+- 2026-10-18 10:01 — commit: feat: release TERCOM 1.0.0 watchface for Pebble Time 2 (Emery) to RePebble | directives/build_tercom.md,execution/create_store_assets.py,execution/emulator_check.py,execution/publish_release.py,knowledge/INDEX.md

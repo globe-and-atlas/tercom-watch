@@ -1,6 +1,4 @@
-Initial release of TERCOM for Pebble Time 2 (Emery).
-- 3D wireframe topographic radar mesh with perspective contours
-- Accelerometer-responsive artificial horizon and pitch ladder
-- Yellow flight path reticle enclosing digital time
-- Altitude, compass heading, step counter, and battery telemetry complications
-- Wrist-flick active terrain flight animation
+v1.0.1 Update:
+- Redesigned 6-line altitude gauge with dual time telemetry: hour reference scale on the left, 5-minute increments on the right.
+- Edge-to-edge 3D topographic wireframe mountain range with dual craggy peaks rising above the horizon line and rolling perspective contours.
+- Improved reticle spacing and contrast masking for maximum daylight readability on Pebble Time 2.
