@@ -1,5 +1,5 @@
-v1.0.2 - The 5-Terrain Bundle Update:
-- Added 5 selectable terrain models: TRK-01 CRAGS (the original favorite!), TRK-02 CANYON, TRK-03 DUNES, TRK-04 CALDERA, and TRK-05 ALPINE.
-- Quick double wrist flick cycles to the next terrain track with haptic feedback and saves permanently to watch flash.
-- Top HUD header dynamically displays active track name ('TRK-01:CRAGS', etc.).
-- Complete store gallery updated with all 5 terrain models.
+v1.0.3 - Detailed terrain and temporary flight view
+- Added finer wireframe contours to Crags and Alpine.
+- All five tracks show movement during the brief flight animation.
+- Wrist tilt shifts the terrain while flight mode is active.
+- The terrain returns to its resting view after flight mode ends.

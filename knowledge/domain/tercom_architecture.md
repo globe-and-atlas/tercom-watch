@@ -27,3 +27,9 @@ The terrain generator features 5 procedural models selectable on-watch via rapid
 - Single wrist flick: Wakes up 4.5s 25 FPS active forward flight animation with live horizon banking.
 - Quick double wrist flick (within 1 second): Advances `terrain_type`, triggers haptic buzz (`vibes_short_pulse`), and writes selection to flash (`persist_write_int(STORAGE_KEY_TERRAIN, s_telemetry.terrain_type)`).
 - RAM Footprint: 4,000 bytes out of 128 KB available (127 KB heap free).
+
+## 2026-10-18 Touch and resting-view constraint
+
+- The Pebble Time 2 has touch hardware, but Pebble currently restricts `TouchService` to watchapps. TERCOM remains a watchface, so it cannot receive finger drags. Source: https://developer.repebble.com/guides/events-and-services/touch/
+- Active flight stores the resting `scroll_phase` before animation. When the timer ends, it restores that phase and clears roll and pitch. Repeated wrist taps extend the same temporary flight view without overwriting its original resting position.
+- Minute ticks update clock telemetry and redraw; they do not alter `scroll_phase`.

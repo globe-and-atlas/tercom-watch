@@ -3,6 +3,7 @@ import argparse
 import json
 import subprocess
 from pathlib import Path
+from zipfile import ZipFile
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -16,9 +17,9 @@ def main():
     store = ROOT / "store"
 
     screenshots = [
+        str(store / "listing" / "emery_00_preview.gif"),
         str(store / "emery_tercom.png"),
         str(store / "emery_canyon.png"),
-        str(store / "emery_dunes.png"),
         str(store / "emery_caldera.png"),
         str(store / "emery_alpine.png"),
     ]
@@ -42,8 +43,18 @@ def main():
         print(" ".join(command))
         return
 
+    face = ROOT / "watchface"
+    subprocess.run(["pebble", "clean"], cwd=face, check=True)
+    subprocess.run(["pebble", "build"], cwd=face, check=True)
+    with ZipFile(face / "build" / "watchface.pbw") as archive:
+        embedded = json.loads(archive.read("appinfo.json"))
+    if embedded["versionLabel"] != package["version"]:
+        raise ValueError("Built PBW version differs from package.json")
+    if embedded["uuid"] != package["pebble"]["uuid"]:
+        raise ValueError("Built PBW UUID differs from package.json")
+
     print("\nExecuting pebble publish...")
-    subprocess.run(command, cwd=ROOT / "watchface", check=True)
+    subprocess.run(command, cwd=face, check=True)
     print("✓ Successfully published to RePebble!")
 
 

@@ -34,6 +34,22 @@ Build, test, and publish **TERCOM** — a 1970s phosphor vector CRT topographic 
 
 ## Progress Log
 
+### 2026-10-18 — Reference-detail terrain refinement
+- [x] Add denser contours to Crags.
+- [x] Add denser contours to Alpine.
+- [x] Keep the time readable in Crags.
+- [x] Keep the time readable in Alpine.
+- [x] Verify active terrain motion after a wrist flick.
+- [x] Verify terrain parallax during wrist tilt.
+- [x] Verify time changes do not scroll the terrain.
+- [x] Verify terrain returns to its resting position after active flight.
+- [x] Verify package metadata still identifies TERCOM as a watchface.
+- [x] Pass the Emery build.
+- [x] Obtain a fresh verifier review.
+- [x] Publish the 1.0.3 PBW as a watchface.
+- [x] Verify the public search card loads the refreshed GIF.
+- [x] Verify the public detail page offers the 1.0.3 PBW.
+
 ### 2026-10-18 08:07 — Project Scaffolding
 - Initialized `tercom-watch` via `create_project.py` with `workflow-python` profile.
 - Verified `.gitignore` covers `.lock-waf*`, `.tmp/`, `dist/`, `build/`.

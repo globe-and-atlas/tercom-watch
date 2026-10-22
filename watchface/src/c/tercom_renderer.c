@@ -303,10 +303,12 @@ static int16_t compute_elevation(TerrainType type, int c, int r, int phase_step,
  * 3D Topographic Wireframe Terrain Mesh Renderer:
  * Computes edge-to-edge perspective grid using the active TerrainType profile.
  */
-static void draw_terrain_mesh(GContext *ctx, int16_t scroll_phase, TerrainType terrain_type) {
+static void draw_terrain_mesh(GContext *ctx, const TercomTelemetry *telemetry) {
   GPoint pts[NUM_DEPTH_ROWS][NUM_GRID_COLS];
   int center_x = SCREEN_WIDTH / 2;
-  int phase_step = scroll_phase / 32;
+  int phase_step = telemetry->scroll_phase / 32;
+  int16_t lean_x = (telemetry->roll_angle * 8) / (TRIG_MAX_ANGLE / 16);
+  int16_t lean_y = telemetry->pitch_offset_px / 2;
 
   // Mountain peak height weights across depth rows:
   static const int16_t s_mountain_weight[NUM_DEPTH_ROWS] = {
@@ -321,16 +323,48 @@ static void draw_terrain_mesh(GContext *ctx, int16_t scroll_phase, TerrainType t
   // Compute 3D grid vertices
   for (int r = 0; r < NUM_DEPTH_ROWS; r++) {
     int16_t base_y = s_row_base_y[r];
+    int32_t depth_angle = (r * TRIG_MAX_ANGLE) / NUM_DEPTH_ROWS;
+    int32_t flight_angle = ((int32_t)telemetry->scroll_phase * TRIG_MAX_ANGLE / 256 + depth_angle) % TRIG_MAX_ANGLE;
+    int32_t wave = sin_lookup(flight_angle) - sin_lookup(depth_angle);
+    base_y += (wave * (r + 1) * 4) / (TRIG_MAX_RATIO * NUM_DEPTH_ROWS);
     // Edge-to-edge lateral spread: spans the full width of display
     int16_t half_w = 90 + ((r * 22) / (NUM_DEPTH_ROWS - 1));
     int16_t m_weight = s_mountain_weight[r];
 
     for (int c = 0; c < NUM_GRID_COLS; c++) {
       int16_t x = center_x - half_w + ((2 * half_w * c) / (NUM_GRID_COLS - 1));
-      int16_t elev = compute_elevation(terrain_type, c, r, phase_step, m_weight);
+      int16_t elev = compute_elevation(telemetry->terrain_type, c, r, phase_step, m_weight);
       int16_t y = base_y - elev;
+      x += (lean_x * (r + 1)) / NUM_DEPTH_ROWS;
+      y += (lean_y * (r + 1)) / NUM_DEPTH_ROWS;
 
       pts[r][c] = GPoint(x, y);
+    }
+  }
+
+  // Crags and Alpine use a finer secondary mesh to preserve layered ridges
+  // at Emery resolution. Primary contours are drawn afterwards for contrast.
+  if (telemetry->terrain_type == TERRAIN_CRAGS || telemetry->terrain_type == TERRAIN_ALPINE) {
+    graphics_context_set_stroke_color(ctx, COLOR_TERRAIN_SECONDARY);
+    for (int r = 0; r < NUM_DEPTH_ROWS - 1; r++) {
+      GPoint previous = GPoint((pts[r][0].x + pts[r + 1][0].x) / 2,
+                              (pts[r][0].y + pts[r + 1][0].y) / 2);
+      for (int c = 1; c < NUM_GRID_COLS; c++) {
+        GPoint current = GPoint((pts[r][c].x + pts[r + 1][c].x) / 2,
+                                (pts[r][c].y + pts[r + 1][c].y) / 2 + ((c * 3 + r + phase_step) % 3) - 1);
+        graphics_draw_line(ctx, previous, current);
+        previous = current;
+      }
+    }
+    for (int c = 0; c < NUM_GRID_COLS - 1; c++) {
+      GPoint previous = GPoint((pts[0][c].x + pts[0][c + 1].x) / 2,
+                              (pts[0][c].y + pts[0][c + 1].y) / 2);
+      for (int r = 1; r < NUM_DEPTH_ROWS; r++) {
+        GPoint current = GPoint((pts[r][c].x + pts[r][c + 1].x) / 2,
+                                (pts[r][c].y + pts[r][c + 1].y) / 2 + ((c + r * 2 + phase_step) % 3) - 1);
+        graphics_draw_line(ctx, previous, current);
+        previous = current;
+      }
     }
   }
 
@@ -409,7 +443,7 @@ void tercom_renderer_draw(GContext *ctx, GRect bounds, const TercomTelemetry *te
   draw_altitude_time_gauge(ctx, center, telemetry->pitch_offset_px, telemetry->roll_angle, telemetry);
 
   // 2. Draw 3D topographic wireframe terrain mesh with active terrain model
-  draw_terrain_mesh(ctx, telemetry->scroll_phase, telemetry->terrain_type);
+  draw_terrain_mesh(ctx, telemetry);
 
   // 3. Draw central flight-path reticle and digital time
   draw_reticle_and_time(ctx, center, telemetry);

@@ -9,6 +9,7 @@ static TercomTelemetry s_telemetry;
 static AppTimer *s_anim_timer = NULL;
 static int s_anim_frames_remaining = 0;
 static bool s_is_active_anim = false;
+static int16_t s_rest_scroll_phase = 0;
 static time_t s_last_tap_time = 0;
 
 static void update_telemetry(void) {
@@ -87,6 +88,7 @@ static void anim_timer_callback(void *data) {
   } else {
     s_is_active_anim = false;
     s_anim_timer = NULL;
+    s_telemetry.scroll_phase = s_rest_scroll_phase;
     s_telemetry.roll_angle = 0;
     s_telemetry.pitch_offset_px = 0;
     layer_mark_dirty(s_canvas_layer);
@@ -94,6 +96,9 @@ static void anim_timer_callback(void *data) {
 }
 
 static void trigger_active_flight(void) {
+  if (!s_is_active_anim) {
+    s_rest_scroll_phase = s_telemetry.scroll_phase;
+  }
   s_is_active_anim = true;
   s_anim_frames_remaining = (ACTIVE_ANIM_DURATION_MS * ACTIVE_ANIM_FPS) / 1000;
   if (!s_anim_timer) {
