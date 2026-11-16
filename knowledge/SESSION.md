@@ -4,7 +4,7 @@
 **Agent:** Claude Code CLI
 **Handoff-from:** Claude Code CLI
 **Handoff-type:** continuation
-**Status:** Built locally; not published. 1.2.1 remains live.
+**Status:** Live. Published 2026-11-16 04:04 UTC with user approval. The store API (v1/apps/id) serves 1.2.2 with SHA-256 eb14053f328dd0fa345d7aef53b589bfa9f1866d71cf2cf114e1c67fac70f475, matching the reviewed build, and `publish_release.py --verify` passed for all 15 gallery assets. The public web detail page still linked the 1.2.1 PBW for at least 3 minutes after release (documented page lag). Recheck it if it matters.
 
 Adds an Opening flight setting (On/Off, default On, message key OPEN_FLIGHT, persist key 11). Replaces the SIM altitude modulo, which dropped from 1999 to 1200 every 800 steps, with a 1200–2000 ft triangle wave in `tercom_sim_altitude()`. Host tests cover the range and a maximum 1 ft change per step. New `execution/check_open_flight.py` makes an Emery launcher round trip: the flight plays with the setting On, the face stays still with it Off, and tap flight still works. The three-platform capture shows flight and exact restoration. Also replaces the static hour/minute ladder with moving tapes. Fixed yellow pointers sit level with the clock, and the tapes slide every minute (minutes 2.8 px/min, hours by the minute fraction). The user asked for this after a mock review (before/after sheets in .tmp/gauge/). Pebble 2 draws lines and pointers only, because its 90 px clock leaves no room for numbers; the 1.2.1 Pebble 2 labels already collided with the digits. The emulator shows correct readings at 10:47, motion between 10:46 and 10:47, banking during flight and exact restoration on all three platforms. No separate verifier pass.
 
@@ -99,3 +99,4 @@ Feynman gap: Emulator and host checks do not establish physical wrist feel, pair
 - 2026-11-15 21:24 — commit: fix: TERCOM 1.2.1 battery, tap and settings fixes | README.md,knowledge/SESSION.md,release/TERCOM-1.2.1.pbw,store/description.txt,store/listing-1.2.1/diorite_01_flight.gif
 - 2026-11-15 21:47 — commit: chore: record TERCOM 1.2.1 store release and public verification | README.md,knowledge/SESSION.md,release/1.2.1/public-proof.json,release/1.2.1/store-release.json
 - 2026-11-15 21:52 — commit: fix: TERCOM 1.2.2 opening-flight setting and smooth SIM altitude | README.md,execution/check_open_flight.py,knowledge/SESSION.md,release/TERCOM-1.2.2.pbw,store/listing-1.2.2/diorite_01_flight.gif
+- 2026-11-15 22:03 — commit: feat: TERCOM 1.2.2 moving-tape time gauge | README.md,knowledge/SESSION.md,release/TERCOM-1.2.2.pbw,store/listing-1.2.2/diorite_01_flight.gif,store/listing-1.2.2/diorite_02_crags.gif

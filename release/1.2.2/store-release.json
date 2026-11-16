@@ -1,0 +1,183 @@
+{
+  "url": "https://apps.repebble.com/tercom_c6f081e1607448bf92df7de4",
+  "app_id": "c6f081e1607448bf92df7de4",
+  "version": "1.2.2",
+  "pbw_sha256": "eb14053f328dd0fa345d7aef53b589bfa9f1866d71cf2cf114e1c67fac70f475",
+  "response": {
+    "success": true,
+    "release": {
+      "id": "e68cbfdfa8b54b9f96267e5e",
+      "app_id": "c6f081e1607448bf92df7de4",
+      "has_pbw": true,
+      "capabilities": [
+        "health",
+        "configurable"
+      ],
+      "js_md5": null,
+      "published_date": "2026-11-16T04:04:11.102",
+      "release_notes": "The time gauge now reads like a flight instrument: hour and minute tapes slide past yellow pointers beside the clock, so the scales show the current time and move every minute. New Opening flight setting turns off the short flight when the face appears, while keeping tap flight. The simulated SIM altitude now climbs and descends smoothly with your steps.",
+      "version": "1.2.2",
+      "compatibility": [
+        "emery",
+        "gabbro",
+        "diorite"
+      ],
+      "is_published": true,
+      "pbw_url": "/api/assets/pbw/c6f081e1607448bf92df7de4/1.2.2/bcb0bdac-2ae3-438f-b1b4-e91247603723.pbw",
+      "pbw_size": 685446,
+      "created_at": "2026-11-16T04:04:11.102",
+      "settings_page_url": null,
+      "settings_page_final_url": null,
+      "settings_page_http_status": null,
+      "settings_page_check_status": null,
+      "settings_page_last_error": null,
+      "settings_page_checked_at": null,
+      "companion_ios_url": null,
+      "companion_ios_final_url": null,
+      "companion_ios_http_status": null,
+      "companion_ios_check_status": null,
+      "companion_ios_last_error": null,
+      "companion_ios_checked_at": null,
+      "companion_android_url": null,
+      "companion_android_final_url": null,
+      "companion_android_http_status": null,
+      "companion_android_check_status": null,
+      "companion_android_last_error": null,
+      "companion_android_checked_at": null,
+      "appinfo_json": {
+        "name": "tercom-watch",
+        "uuid": "a05c6357-104a-4090-bba4-0a1cb7606927",
+        "appKeys": {
+          "DATE": 10005,
+          "COURSE": 10007,
+          "FLIGHT": 10001,
+          "COMPASS": 10009,
+          "PALETTE": 10000,
+          "TERRAIN": 10008,
+          "TOP_FIELD": 10004,
+          "SHOW_STEPS": 10006,
+          "OPEN_FLIGHT": 10010,
+          "SENSITIVITY": 10002,
+          "SWITCH_TRACKS": 10003
+        },
+        "longName": "TERCOM",
+        "watchapp": {
+          "watchface": true
+        },
+        "resources": {
+          "media": []
+        },
+        "shortName": "TERCOM",
+        "sdkVersion": "3",
+        "companyName": "Daniel Bally",
+        "displayName": "TERCOM",
+        "messageKeys": {
+          "DATE": 10005,
+          "COURSE": 10007,
+          "FLIGHT": 10001,
+          "COMPASS": 10009,
+          "PALETTE": 10000,
+          "TERRAIN": 10008,
+          "TOP_FIELD": 10004,
+          "SHOW_STEPS": 10006,
+          "OPEN_FLIGHT": 10010,
+          "SENSITIVITY": 10002,
+          "SWITCH_TRACKS": 10003
+        },
+        "capabilities": [
+          "health",
+          "configurable"
+        ],
+        "versionLabel": "1.2.2",
+        "enableMultiJS": true,
+        "targetPlatforms": [
+          "emery",
+          "gabbro",
+          "diorite"
+        ]
+      }
+    },
+    "message": "Release created successfully",
+    "screenshotResults": {
+      "uploaded": [
+        {
+          "platform": "emery",
+          "filename": "emery_01_flight.gif",
+          "url": "/api/assets/screenshots/c6f081e1607448bf92df7de4/emery/3f8ac97f-b62a-4c15-9a21-94c031c2313c.gif"
+        },
+        {
+          "platform": "emery",
+          "filename": "emery_02_crags.gif",
+          "url": "/api/assets/screenshots/c6f081e1607448bf92df7de4/emery/c86e9a4c-7bc5-4e62-aeaa-9dc6c2dff028.gif"
+        },
+        {
+          "platform": "emery",
+          "filename": "emery_03_bank.gif",
+          "url": "/api/assets/screenshots/c6f081e1607448bf92df7de4/emery/c6eaba93-b5a7-458d-87c6-abfb378800f5.gif"
+        },
+        {
+          "platform": "emery",
+          "filename": "emery_04_canyon.gif",
+          "url": "/api/assets/screenshots/c6f081e1607448bf92df7de4/emery/17344963-7eec-46aa-8096-b609267f1903.gif"
+        },
+        {
+          "platform": "emery",
+          "filename": "emery_05_alpine.gif",
+          "url": "/api/assets/screenshots/c6f081e1607448bf92df7de4/emery/3acf6ad8-678e-47d6-b302-d9a6250dea2f.gif"
+        },
+        {
+          "platform": "gabbro",
+          "filename": "gabbro_01_flight.gif",
+          "url": "/api/assets/screenshots/c6f081e1607448bf92df7de4/gabbro/7f981bdc-7f3e-4b3c-9fc5-b6ce3a2ea48e.gif"
+        },
+        {
+          "platform": "gabbro",
+          "filename": "gabbro_02_crags.gif",
+          "url": "/api/assets/screenshots/c6f081e1607448bf92df7de4/gabbro/b1fe3944-84bf-4236-9f77-12d6856b6d27.gif"
+        },
+        {
+          "platform": "gabbro",
+          "filename": "gabbro_03_bank.gif",
+          "url": "/api/assets/screenshots/c6f081e1607448bf92df7de4/gabbro/edc11c94-fecd-4786-a0ca-252bc58c76fc.gif"
+        },
+        {
+          "platform": "gabbro",
+          "filename": "gabbro_04_canyon.gif",
+          "url": "/api/assets/screenshots/c6f081e1607448bf92df7de4/gabbro/667289d2-37e8-4895-868d-c35129896092.gif"
+        },
+        {
+          "platform": "gabbro",
+          "filename": "gabbro_05_alpine.gif",
+          "url": "/api/assets/screenshots/c6f081e1607448bf92df7de4/gabbro/47a14133-23cf-4702-83d2-62b1a4c3a71e.gif"
+        },
+        {
+          "platform": "diorite",
+          "filename": "diorite_01_flight.gif",
+          "url": "/api/assets/screenshots/c6f081e1607448bf92df7de4/diorite/c5c7fffd-1c0f-4075-9e46-11e91527dfe6.gif"
+        },
+        {
+          "platform": "diorite",
+          "filename": "diorite_02_crags.gif",
+          "url": "/api/assets/screenshots/c6f081e1607448bf92df7de4/diorite/4baa3e8e-8c9e-4e1d-a8d4-23566bd5ec59.gif"
+        },
+        {
+          "platform": "diorite",
+          "filename": "diorite_03_bank.gif",
+          "url": "/api/assets/screenshots/c6f081e1607448bf92df7de4/diorite/013c2e3c-fe0e-4161-b13e-78f313d7bbc3.gif"
+        },
+        {
+          "platform": "diorite",
+          "filename": "diorite_04_canyon.gif",
+          "url": "/api/assets/screenshots/c6f081e1607448bf92df7de4/diorite/8b82db84-08b2-479d-9fdd-e7f2fa60a510.gif"
+        },
+        {
+          "platform": "diorite",
+          "filename": "diorite_05_alpine.gif",
+          "url": "/api/assets/screenshots/c6f081e1607448bf92df7de4/diorite/3c89fcfa-b15c-4a01-8e47-0d05995b1302.gif"
+        }
+      ],
+      "failed": []
+    }
+  },
+  "public_verified": true
+}
