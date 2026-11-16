@@ -25,6 +25,10 @@ int main(void) {
           int course = tercom_course_column(r, phase);
           assert(course >= 8 && course <= 12);
         }
+  // Each flight step advances the canyon course one row, including the 7 -> 0 wrap.
+  for (int r = 0; r < 11; r++)
+    for (int phase = 0; phase < 8; phase++)
+      assert(tercom_course_column(r, (phase + 1) % 8) == tercom_course_column(r + 1, phase));
   for (int a = 0; a < 5; a++)
     for (int b = a + 1; b < 5; b++) assert(signatures[a] != signatures[b]);
   assert(tercom_flight_frames(0, 25) == 0);
@@ -52,7 +56,7 @@ int main(void) {
         subprocess.run(['node', '-e', r'''
 const fs = require('fs'), vm = require('vm'), assert = require('assert');
 const events = {};
-const context = {module: {exports: {}}, require: () => function () {},
+const context = {module: {exports: {}}, require: () => function () { this.generateUrl = () => "data:clay"; },
   Pebble: {addEventListener: (name, fn) => events[name] = fn}, console};
 vm.runInNewContext(fs.readFileSync('watchface/src/pkjs/index.js', 'utf8'), context);
 const normalize = context.module.exports.normalized;
@@ -62,5 +66,22 @@ assert.equal(normalize({DATE: '3'}).DATE, 3);
 assert.equal(normalize({PALETTE: 99}).PALETTE, 0);
 assert.equal(normalize({SENSITIVITY: -1}).SENSITIVITY, 2);
 assert.equal(normalize({SWITCH_TRACKS: 0}).SWITCH_TRACKS, 0);
+assert.equal(normalize({}).TERRAIN, 5);           // keep watch track by default
+assert.equal(normalize({TERRAIN: '3'}).TERRAIN, 3);
+assert.equal(normalize({TERRAIN: 6}).TERRAIN, 5);
+assert.equal(normalize({}).COMPASS, 1);
+assert.equal(normalize({COMPASS: '0'}).COMPASS, 0);
+assert.equal(normalize({COMPASS: 2}).COMPASS, 1);
+const terrain = context.module.exports.configuration.find(item => item.messageKey === 'TERRAIN');
+assert.equal(terrain.defaultValue, '5');
+assert.equal(terrain.options[0].value, '5');
+// Opening settings resets a stale track choice so a save keeps the watch track.
+const store = {'clay-settings': JSON.stringify({TERRAIN: '2', PALETTE: '1'})};
+context.localStorage = {getItem: k => store[k] ?? null, setItem: (k, v) => store[k] = String(v)};
+let opened = null;
+context.Pebble.openURL = url => opened = url;
+events.showConfiguration();
+assert.equal(JSON.parse(store['clay-settings']).TERRAIN, '5');
+assert.equal(JSON.parse(store['clay-settings']).PALETTE, '1');
 assert.equal(events.ready, undefined); // startup cannot overwrite wrist-selected track
 '''], cwd=ROOT, check=True)

@@ -414,11 +414,15 @@ static void draw_telemetry_bars(GContext *ctx, GRect bounds, const TercomTelemet
 
   // Bottom telemetry bar: HDG | STEPS / DIST | BATT
   char bot_hdg_str[24];
-  if (telemetry->heading_deg >= 0) {
+#ifdef PBL_COMPASS
+  bool compass_shown = telemetry->compass_mode != 0;
+#else
+  bool compass_shown = false;  // Pebble 2 has no magnetometer; leave the slot blank.
+#endif
+  if (!compass_shown) bot_hdg_str[0] = '\0';
+  else if (telemetry->heading_deg >= 0)
     snprintf(bot_hdg_str, sizeof(bot_hdg_str), "HDG:%03d°", telemetry->heading_deg);
-  } else {
-    snprintf(bot_hdg_str, sizeof(bot_hdg_str), "HDG:---");
-  }
+  else snprintf(bot_hdg_str, sizeof(bot_hdg_str), "HDG:---");
 
   char bot_steps_str[20];
   if (telemetry->date_format == 1)

@@ -4,6 +4,6 @@ Choose Green phosphor, Amber terminal, Ice blue, or Monochrome on color watches.
 
 On the watch, a single wrist tap starts a temporary flight. A rapid double tap changes tracks when enabled. Flight returns to the exact resting terrain position. In the phone settings, choose Flight Off, Short (2 seconds), or Standard (about 4.5 seconds), adjust tilt response, disable double-tap switching, or choose a track directly.
 
-The upper-right readout can show explicitly simulated altitude (SIM), daily steps, compass heading, battery, or nothing. Choose an optional ISO, US, or European date in the lower center, daily steps, or an empty center. A dashed illustrative course line is optional. SIM shows a fictional altitude derived from steps. The landscapes and course lines are illustrative. The heading shows --- when a compass reading is unavailable.
+The upper-right readout can show explicitly simulated altitude (SIM), daily steps, compass heading, battery, or nothing. Choose an optional ISO, US, or European date in the lower center, daily steps, or an empty center. A dashed illustrative course line is optional. SIM shows a fictional altitude derived from steps. The landscapes and course lines are illustrative. The heading shows --- when a compass reading is unavailable. The compass can be switched off to save battery.
 
 Time follows the watch's 12/24-hour setting and updates each minute while idle. The preview opens in flight.

@@ -1,8 +1,9 @@
 #include "terrain_model.h"
 
 int tercom_course_column(int row, int phase) {
-  static const int8_t bend[12] = {0, 1, 2, 2, 1, 0, -1, -2, -2, -1, 0, 0};
-  return 10 + bend[((row + phase) % 12 + 12) % 12];
+  // Period matches the 8-step flight phase so the course never jumps back at the wrap.
+  static const int8_t bend[8] = {0, 1, 2, 1, 0, -1, -2, -1};
+  return 10 + bend[((row + phase) % 8 + 8) % 8];
 }
 
 int tercom_flight_gain(int elapsed, int total) {

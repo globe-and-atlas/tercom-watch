@@ -14,6 +14,7 @@ typedef struct {
   int date_format;
   int show_steps;
   int show_course;
+  int compass_mode;         // 0 off, 1 on
   int year, month, day;
   int hours;
   int minutes;

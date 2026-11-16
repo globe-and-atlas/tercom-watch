@@ -1,7 +1,7 @@
 {
   "name": "tercom-watch",
   "author": "Daniel Bally",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "keywords": [
     "pebble-app"
   ],
@@ -38,7 +38,8 @@
       "DATE",
       "SHOW_STEPS",
       "COURSE",
-      "TERRAIN"
+      "TERRAIN",
+      "COMPASS"
     ]
   }
 }

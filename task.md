@@ -136,3 +136,25 @@ Output: /private/tmp/tercom-2026-11-09/.tmp/platform-probe/. Release approval de
 - [x] An independent reviewer checks release evidence.
 
 Output: release/TERCOM-1.2.0.pbw and store/listing-1.2.0/.
+
+## TERCOM 1.2.1 fixes — 2026-11-15
+
+Output: release/TERCOM-1.2.1.pbw (local; no store publication without approval). UUID and storage keys unchanged.
+
+- [x] A Compass setting offers Off and On.
+- [x] Compass Off leaves the compass unsubscribed.
+- [x] A heading redraw held back by the 1 s limit is deferred, not dropped.
+- [x] At rest, a heading change under 10° does not redraw the face.
+- [x] At rest, heading redraws happen at most once per second.
+- [x] The lower-left heading is blank when the compass is Off.
+- [x] The lower-left heading is blank on platforms without a compass.
+- [x] A tap during flight does not restart the flight timer.
+- [x] A tap within 3 s after a flight ends does not start a new flight.
+- [x] Taps under 150 ms after the previous tap do not switch tracks.
+- [x] Two taps 150–650 ms apart switch tracks when enabled.
+- [x] The settings track field opens on "Keep current track".
+- [x] Saving with "Keep current track" leaves the watch track unchanged.
+- [x] The canyon course has no backward jump at the phase wrap.
+- [x] Host tests pass.
+- [x] The production PBW builds for Emery, Gabbro, and Diorite.
+- [x] Emulator flight restores the resting frame on all three platforms.

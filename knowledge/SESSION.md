@@ -1,3 +1,16 @@
+# TERCOM 1.2.1 fixes — 2026-11-15
+
+**Goal:** Fix battery, stray-tap, settings-reset and Canyon issues found in a code review after TERCOM became popular.
+**Agent:** Claude Code CLI
+**Handoff-from:** OpenAI Codex
+**Handoff-type:** cold-eyes
+**Status:** Built locally; not published. Awaiting independent verification and user approval to publish.
+
+The 1.1.0/1.2.0 source was never committed; it is now commit 8244d7f on branch `tercom-1.2.x` (repo has no remote). 1.2.1 adds a Compass setting (On / Off, default On, persist key 10). The compass was previously subscribed all day and redrew the full mesh every 5°. Rest redraws now need ≥10° and ≥1 s; a held-back redraw is deferred. "While flying" was dropped after verifier review, because a 2–4.5 s flight is too short for compass calibration. Taps no longer restart a flight. A 3 s cooldown follows completed flights only, not settings saves. Taps <150 ms apart count as one flick. The settings track field reopens on "Keep current track" (value 5) so saves keep the watch-picked track. The Canyon bend period is now 8, matching the flight phase. Pebble 2 hides the heading slot. Host tests pass, and the new Canyon assertion fails on the old code. Production PBW release/TERCOM-1.2.1.pbw builds for Emery, Gabbro and Diorite. Native capture shows flight and exact rest restoration on all three (.tmp/release-1.2.1, store/listing-1.2.1).
+
+S.D.G.: Protects the battery and chosen track of the growing number of people wearing TERCOM daily.
+Feynman gap: Real compass power draw, stray-tap frequency and the 150 ms bounce threshold are unmeasured. The emulator has no compass, and its taps can't be spaced under a second.
+
 # TERCOM 1.2.0 — 2026-11-09
 
 **Goal:** Publish the approved Time 2, Round 2, and Pebble 2 release with the flight tagline and mid-flight gallery covers.
@@ -69,3 +82,4 @@ Feynman gap: Native emulators verify motion and layout. Physical tap feel, phone
 
 S.D.G.: Helps TERCOM wearers read time more easily and tailor a brief terrain-flight experience without losing their resting scene.
 Feynman gap: Emulator and host checks do not establish physical wrist feel, paired-phone configuration flow, or battery impact.
+- 2026-11-15 21:13 — commit: feat: TERCOM 1.1.0 and 1.2.0 as published | AGENTS.md,README.md,directives/improve_instrument.md,execution/build.py,execution/capture_release.py
