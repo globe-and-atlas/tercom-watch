@@ -15,6 +15,7 @@ typedef struct {
   int show_steps;
   int show_course;
   int compass_mode;         // 0 off, 1 on
+  int open_flight;          // 0 off, 1 fly when the face opens
   int year, month, day;
   int hours;
   int minutes;

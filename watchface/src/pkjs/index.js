@@ -18,6 +18,7 @@ var configuration = [
         return {label: text, value: String(index)};
       }))},
   select('FLIGHT', 'Tap flight', 2, ['Off', 'Short — 2 seconds', 'Standard — 4.5 seconds']),
+  select('OPEN_FLIGHT', 'Opening flight when the face appears', 1, ['Off', 'On']),
   select('SENSITIVITY', 'Tilt response during flight', 2, ['Off', 'Gentle', 'Normal', 'Responsive']),
   select('SWITCH_TRACKS', 'Double tap changes track', 1, ['Off', 'On']),
   select('COMPASS', 'Compass', 1, ['Off', 'On']),
@@ -32,9 +33,9 @@ var configuration = [
 var clay = new Clay(configuration, null, {autoHandleEvents: false});
 
 function normalized(saved) {
-  var maxima = [3, 5, 2, 3, 1, 4, 3, 1, 1, 1];
-  var defaults = [0, 5, 2, 2, 1, 0, 0, 1, 0, 1];
-  var keys = ['PALETTE', 'TERRAIN', 'FLIGHT', 'SENSITIVITY', 'SWITCH_TRACKS', 'TOP_FIELD', 'DATE', 'SHOW_STEPS', 'COURSE', 'COMPASS'];
+  var maxima = [3, 5, 2, 3, 1, 4, 3, 1, 1, 1, 1];
+  var defaults = [0, 5, 2, 2, 1, 0, 0, 1, 0, 1, 1];
+  var keys = ['PALETTE', 'TERRAIN', 'FLIGHT', 'SENSITIVITY', 'SWITCH_TRACKS', 'TOP_FIELD', 'DATE', 'SHOW_STEPS', 'COURSE', 'COMPASS', 'OPEN_FLIGHT'];
   var out = {};
   keys.forEach(function (key, i) {
     var value = Number(saved[key]);

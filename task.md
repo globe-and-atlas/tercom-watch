@@ -158,3 +158,17 @@ Output: release/TERCOM-1.2.1.pbw (local; no store publication without approval).
 - [x] Host tests pass.
 - [x] The production PBW builds for Emery, Gabbro, and Diorite.
 - [x] Emulator flight restores the resting frame on all three platforms.
+
+## TERCOM 1.2.2 fixes — 2026-11-15
+
+Output: release/TERCOM-1.2.2.pbw (local; no store publication without approval). UUID and storage keys 1–10 unchanged.
+
+- [x] An "Opening flight" setting offers Off and On.
+- [x] Opening flight defaults to On.
+- [x] With Opening flight Off, loading the face schedules no animation.
+- [x] Tap flight still works with Opening flight Off.
+- [x] SIM altitude stays within 1200–2000 ft.
+- [x] One extra step changes SIM altitude by at most 1 ft.
+- [x] Host tests pass.
+- [x] The production PBW builds for Emery, Gabbro, and Diorite.
+- [x] Emulator flight restores the resting frame on all three platforms.

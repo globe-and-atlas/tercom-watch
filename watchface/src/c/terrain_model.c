@@ -107,3 +107,11 @@ int16_t tercom_elevation(TerrainType type, int c, int r, int phase_step, int m_w
 int tercom_flight_frames(int mode, int fps) {
   return mode == 0 ? 0 : mode == 1 ? 2 * fps : 4500 * fps / 1000;
 }
+
+// Fictional cruise altitude: climbs 1 ft per step from 1200 to 2000, then descends
+// back, so it never jumps the way a plain modulo would.
+int32_t tercom_sim_altitude(int32_t steps) {
+  if (steps < 0) steps = 0;
+  int32_t leg = steps % 1600;
+  return 1200 + (leg <= 800 ? leg : 1600 - leg);
+}

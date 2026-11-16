@@ -102,8 +102,7 @@ static void update_telemetry(void) {
 #if TERCOM_TEST_ALT >= 0
   s_telemetry.altitude_ft = TERCOM_TEST_ALT;
 #else
-  // Default flight cruise altitude based on steps progress
-  s_telemetry.altitude_ft = 1200 + (s_telemetry.step_count % 800);
+  s_telemetry.altitude_ft = tercom_sim_altitude(s_telemetry.step_count);
 #endif
 
   // 6. Terrain Model
@@ -185,12 +184,12 @@ static void inbox_received(DictionaryIterator *iterator, void *context) {
   int *values[] = {&s_telemetry.palette, &s_telemetry.flight_mode,
     &s_telemetry.sensitivity, &s_telemetry.switch_tracks, &s_telemetry.top_field,
     &s_telemetry.date_format, &s_telemetry.show_steps, &s_telemetry.show_course,
-    &s_telemetry.compass_mode};
-  const int limits[] = {3, 2, 3, 1, 4, 3, 1, 1, 1};
+    &s_telemetry.compass_mode, &s_telemetry.open_flight};
+  const int limits[] = {3, 2, 3, 1, 4, 3, 1, 1, 1, 1};
   const uint32_t keys[] = {MESSAGE_KEY_PALETTE, MESSAGE_KEY_FLIGHT, MESSAGE_KEY_SENSITIVITY,
     MESSAGE_KEY_SWITCH_TRACKS, MESSAGE_KEY_TOP_FIELD, MESSAGE_KEY_DATE,
-    MESSAGE_KEY_SHOW_STEPS, MESSAGE_KEY_COURSE, MESSAGE_KEY_COMPASS};
-  for (int i = 0; i < 9; i++) {
+    MESSAGE_KEY_SHOW_STEPS, MESSAGE_KEY_COURSE, MESSAGE_KEY_COMPASS, MESSAGE_KEY_OPEN_FLIGHT};
+  for (int i = 0; i < 10; i++) {
     Tuple *tuple = dict_find(iterator, keys[i]);
     if (tuple && tuple->value->int32 >= 0 && tuple->value->int32 <= limits[i]) {
       *values[i] = tuple->value->int32;
@@ -277,6 +276,7 @@ static void window_load(Window *window) {
   s_telemetry.show_steps = load_setting(8, 1, 1);
   s_telemetry.show_course = load_setting(9, 1, 0);
   s_telemetry.compass_mode = load_setting(10, 1, 1);
+  s_telemetry.open_flight = load_setting(11, 1, 1);
   // Load saved terrain preference (defaults to original TERRAIN_CRAGS)
   if (persist_exists(STORAGE_KEY_TERRAIN)) {
     s_telemetry.terrain_type = (TerrainType)persist_read_int(STORAGE_KEY_TERRAIN);
@@ -290,8 +290,8 @@ static void window_load(Window *window) {
   update_telemetry();
   compass_refresh();
 
-  // Trigger brief introductory flight sequence on startup
-  trigger_active_flight();
+  // Brief introductory flight each time the face opens, unless turned off.
+  if (s_telemetry.open_flight) trigger_active_flight();
 }
 
 static void window_unload(Window *window) {

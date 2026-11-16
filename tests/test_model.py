@@ -29,6 +29,13 @@ int main(void) {
   for (int r = 0; r < 11; r++)
     for (int phase = 0; phase < 8; phase++)
       assert(tercom_course_column(r, (phase + 1) % 8) == tercom_course_column(r + 1, phase));
+  // SIM altitude stays in range and never jumps by more than 1 ft per step.
+  for (int steps = 0; steps < 5000; steps++) {
+    int alt = tercom_sim_altitude(steps), next = tercom_sim_altitude(steps + 1);
+    assert(alt >= 1200 && alt <= 2000);
+    assert(next - alt <= 1 && alt - next <= 1);
+  }
+  assert(tercom_sim_altitude(-5) == 1200);
   for (int a = 0; a < 5; a++)
     for (int b = a + 1; b < 5; b++) assert(signatures[a] != signatures[b]);
   assert(tercom_flight_frames(0, 25) == 0);
@@ -72,6 +79,8 @@ assert.equal(normalize({TERRAIN: 6}).TERRAIN, 5);
 assert.equal(normalize({}).COMPASS, 1);
 assert.equal(normalize({COMPASS: '0'}).COMPASS, 0);
 assert.equal(normalize({COMPASS: 2}).COMPASS, 1);
+assert.equal(normalize({}).OPEN_FLIGHT, 1);
+assert.equal(normalize({OPEN_FLIGHT: '0'}).OPEN_FLIGHT, 0);
 const terrain = context.module.exports.configuration.find(item => item.messageKey === 'TERRAIN');
 assert.equal(terrain.defaultValue, '5');
 assert.equal(terrain.options[0].value, '5');

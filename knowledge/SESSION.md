@@ -1,3 +1,16 @@
+# TERCOM 1.2.2 fixes — 2026-11-15
+
+**Goal:** Finish the two minor review fixes before the user's physical-watch wear test.
+**Agent:** Claude Code CLI
+**Handoff-from:** Claude Code CLI
+**Handoff-type:** continuation
+**Status:** Built locally; not published. 1.2.1 remains live.
+
+Adds an Opening flight setting (On/Off, default On, message key OPEN_FLIGHT, persist key 11). Replaces the SIM altitude modulo, which dropped from 1999 to 1200 every 800 steps, with a 1200–2000 ft triangle wave in `tercom_sim_altitude()`. Host tests cover the range and a maximum 1 ft change per step. New `execution/check_open_flight.py` makes an Emery launcher round trip: the flight plays with the setting On, the face stays still with it Off, and tap flight still works. The three-platform capture shows flight and exact restoration. No separate verifier pass, given the small routine change.
+
+S.D.G.: Lets wearers who find the opening flight distracting keep a calm face without losing tap flight.
+Feynman gap: The wear test is pending. It covers battery with Compass On vs Off, stray-tap cooldown feel and the 150 ms double-tap threshold.
+
 # TERCOM 1.2.1 fixes — 2026-11-15
 
 **Goal:** Fix battery, stray-tap, settings-reset and Canyon issues found in a code review after TERCOM became popular.
@@ -84,3 +97,4 @@ S.D.G.: Helps TERCOM wearers read time more easily and tailor a brief terrain-fl
 Feynman gap: Emulator and host checks do not establish physical wrist feel, paired-phone configuration flow, or battery impact.
 - 2026-11-15 21:13 — commit: feat: TERCOM 1.1.0 and 1.2.0 as published | AGENTS.md,README.md,directives/improve_instrument.md,execution/build.py,execution/capture_release.py
 - 2026-11-15 21:24 — commit: fix: TERCOM 1.2.1 battery, tap and settings fixes | README.md,knowledge/SESSION.md,release/TERCOM-1.2.1.pbw,store/description.txt,store/listing-1.2.1/diorite_01_flight.gif
+- 2026-11-15 21:47 — commit: chore: record TERCOM 1.2.1 store release and public verification | README.md,knowledge/SESSION.md,release/1.2.1/public-proof.json,release/1.2.1/store-release.json

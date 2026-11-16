@@ -13,3 +13,4 @@ int16_t tercom_elevation(TerrainType type, int c, int r, int phase_step, int m_w
 int tercom_course_column(int row, int phase);
 int tercom_flight_gain(int elapsed, int total);
 int tercom_flight_frames(int mode, int fps);
+int32_t tercom_sim_altitude(int32_t steps);
