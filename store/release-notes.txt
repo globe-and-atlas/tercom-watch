@@ -1,5 +1,1 @@
-v1.0.3 - Detailed terrain and temporary flight view
-- Added finer wireframe contours to Crags and Alpine.
-- All five tracks show movement during the brief flight animation.
-- Wrist tilt shifts the terrain while flight mode is active.
-- The terrain returns to its resting view after flight mode ends.
+Adds Pebble Round 2 and Pebble 2 support, with a HUD fitted to the round display and a cleaner monochrome wireframe for Pebble 2.

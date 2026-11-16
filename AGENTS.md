@@ -6,6 +6,10 @@
 
 This project uses a profile-based workshop structure.
 
+## Actual runtime
+
+The product is a native Pebble C watchface in `watchface/src/c/`, with Clay phone settings in `watchface/src/pkjs/`. The template's workflow-python profile is scaffold provenance. Use `python3 execution/build.py` for a clean production PBW and `python3 -m unittest discover -s tests` for host checks.
+
 ## Project-Specific Contract Steps
 
 In addition to the workspace-level Contract, before acting on this project:

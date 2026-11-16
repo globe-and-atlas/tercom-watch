@@ -1,28 +1,28 @@
-# tercom-watch
+# TERCOM
 
-Scaffolded from `project-template` using the `workflow-python` profile.
+A native watchface for Pebble Time 2, Pebble Round 2, and Pebble 2 with five procedural wireframe landscapes, an instrument clock, and brief wrist-controlled flight.
 
-## Project Profile
+## Features
 
-- `profile`: `workflow-python`
-- `deploy`: `local-only`
-- `runtime`: `python`
-- `loop_mode`: `data`
-- `knowledge_level`: `heavy`
+- Four palettes: Green phosphor (default), Amber terminal, Ice blue, Monochrome on color watches. Pebble 2 uses a simplified monochrome mesh.
+- Bolder clock with complete, dimmer scale labels outside its window.
+- Crags, winding Canyon, Dunes, Caldera, and layered Alpine terrains.
+- Flight Off, Short (2 seconds), or Standard (about 4.5 seconds); four tilt responses including Off.
+- Optional double-tap track switching; manual track selection in phone settings.
+- Upper-right field: explicitly simulated altitude, steps, heading, battery, or empty.
+- Optional lower-center date (ISO, US, European), steps, or empty.
+- Optional illustrative dashed course line. Landscapes and course are fictional, not navigation data.
 
-## Workshop Standard
+Use the settings gear in the Pebble phone app. A single wrist tap triggers the selected flight duration; a rapid pair changes the track if enabled. After flight the exact starting terrain position returns. Watch persistence retains settings and the wrist-selected track; the phone does not overwrite them at startup. The track choice in the settings form applies when saved.
 
-This project follows the 3-layer architecture:
+## Build and verify
 
-```text
-directives/     Layer 1 — What to do
-agent           Layer 2 — Decide → Delegate → Verify
-execution/      Layer 3 — Deterministic execution (when this profile uses it)
+```bash
+python3 -m unittest discover -s tests -v
+python3 execution/build.py
+python3 execution/capture_release.py release/TERCOM-1.2.0.pbw .tmp/release-1.2.0
 ```
 
-## Next Steps
+Build output: `release/TERCOM-1.2.0.pbw`. The build wrapper cleans and removes fixture environment values. Native flight GIFs and screenshots are in `store/listing-1.2.0/`.
 
-1. Fill in the actual project description here.
-2. Update `task.md` with the first real milestone.
-3. Populate `knowledge/context.md`.
-4. Draft the first workflow directive in `directives/`.
+Version 1.2.0 is published at https://apps.repebble.com/tercom_c6f081e1607448bf92df7de4. Physical-watch readability, wrist feel, phone settings flow, and battery cost remain open device checks.

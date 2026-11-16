@@ -3,16 +3,18 @@
 #include <pebble.h>
 #include "config.h"
 
-typedef enum {
-  TERRAIN_CRAGS = 0,   // The Original v1.0.1 dual peaks & pass
-  TERRAIN_CANYON = 1,  // Sheer gorge / trench corridor
-  TERRAIN_DUNES = 2,   // Sinuous transverse sand dunes & ripples
-  TERRAIN_CALDERA = 3, // Volcanic crater caldera & central cone
-  TERRAIN_ALPINE = 4,  // Sawtooth multi-summit alpine massif
-  TERRAIN_COUNT = 5,
-} TerrainType;
+#include "terrain_model.h"
 
 typedef struct {
+  int palette;
+  int flight_mode;
+  int sensitivity;
+  int switch_tracks;
+  int top_field;
+  int date_format;
+  int show_steps;
+  int show_course;
+  int year, month, day;
   int hours;
   int minutes;
   bool is_24h;

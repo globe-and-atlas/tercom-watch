@@ -69,3 +69,70 @@ Build, test, and publish **TERCOM** — a 1970s phosphor vector CRT topographic 
 - Implemented double-tap wrist gesture with short vibration pulse and flash persistence (`STORAGE_KEY_TERRAIN`).
 - Captured emulator screenshots for all 5 tracks.
 - Published v1.0.2 to RePebble with updated 5-screenshot carousel.
+
+## TERCOM 1.1.0 — 2026-10-27
+
+Output: release/TERCOM-1.1.0.pbw; native previews in store/preview-1.1.0/. Target: Emery watchface with existing UUID.
+
+- [x] Green remains the default palette.
+- [x] Amber, Ice blue, and Monochrome are selectable.
+- [x] Resting clock is visually distinct from dimmer scales.
+- [x] Five terrain silhouettes remain selectable.
+- [x] Dunes calculations avoid negative array indices.
+- [x] Flight Off does not schedule animation.
+- [x] Short flight lasts two seconds.
+- [x] Standard flight lasts 4.5 seconds.
+- [x] Completed flight restores the starting terrain phase.
+- [x] Tilt sensitivity is selectable.
+- [x] Double-tap track switching can be disabled.
+- [x] The simulated altitude field is labeled SIM.
+- [x] Optional date offers Off, ISO, US, and European formats.
+- [x] Selected settings survive restart.
+- [x] Native screenshots show four palettes.
+- [x] Host tests pass.
+- [x] Production PBW contains no fixed-time fixture.
+- [x] Independent verifier approves the final package.
+
+Safety: preserve current UUID and terrain storage key; no store publication in this local design iteration.
+
+2026-10-27: local 1.1.0 implementation and package gates passed. Sanitized model tests and phone-settings normalization pass. Private native replay verifies motion Off, durations, tilt movement, exact resting restoration, disabled track switching, settings persistence, and live production clock. Physical-watch feel and phone UI flow remain open.
+
+## Store release 1.1.0 — 2026-10-27
+
+- [x] Release PBW preserves the existing UUID.
+- [x] Release PBW identifies version 1.1.0.
+- [x] Gallery contains five native 200×228 media files.
+- [x] Store copy names four palettes.
+- [x] Store copy identifies simulated telemetry.
+- [x] Independent release review passes.
+- [x] Dashboard marks 1.1.0 Published.
+- [x] Public download serves 1.1.0.
+- [x] Public gallery matches the new media.
+
+User authorized store publication and new screenshots. Use execution/publish_release.py, store/listing-1.1.0/, and store/description.txt. Preserve production fixtures-off build policy.
+
+## Round 2 and Pebble 2 visual probe — 2026-11-09
+
+- [x] The isolated probe PBW contains a Gabbro binary.
+- [x] The isolated probe PBW contains a Diorite binary.
+- [x] The Gabbro emulator produces a 260×260 resting frame.
+- [x] The Gabbro emulator produces an in-flight frame.
+- [x] The Diorite emulator produces a 144×168 resting frame.
+- [x] The Diorite emulator produces an in-flight frame.
+- [x] An independent reviewer inspects the probe artifacts.
+
+Output: /private/tmp/tercom-2026-11-09/.tmp/platform-probe/. Release approval depends on the user's visual decision.
+
+## TERCOM 1.2.0 store release
+
+- [x] The production PBW identifies version 1.2.0.
+- [x] The production PBW targets Emery, Gabbro, and Diorite.
+- [x] Emulator flight restores the resting frame on Emery, Gabbro, and Diorite.
+- [x] The public description opens with the approved tagline.
+- [x] The Time 2 gallery opens with a native mid-flight GIF.
+- [x] The Round 2 gallery opens with a native mid-flight GIF.
+- [x] The Pebble 2 gallery opens with a native mid-flight GIF.
+- [x] The public download matches the reviewed production PBW.
+- [x] An independent reviewer checks release evidence.
+
+Output: release/TERCOM-1.2.0.pbw and store/listing-1.2.0/.

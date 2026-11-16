@@ -33,3 +33,11 @@ The terrain generator features 5 procedural models selectable on-watch via rapid
 - The Pebble Time 2 has touch hardware, but Pebble currently restricts `TouchService` to watchapps. TERCOM remains a watchface, so it cannot receive finger drags. Source: https://developer.repebble.com/guides/events-and-services/touch/
 - Active flight stores the resting `scroll_phase` before animation. When the timer ends, it restores that phase and clears roll and pitch. Repeated wrist taps extend the same temporary flight view without overwriting its original resting position.
 - Minute ticks update clock telemetry and redraw; they do not alter `scroll_phase`.
+
+## 2026-10-27 — Local 1.1.0 instrument update
+
+- `terrain_model.c` is independent of Pebble headers. Sanitizer-backed tests cover five terrains, 21 columns, 12 rows, and eight phases. Dunes modulo is normalized before indexing.
+- New native settings occupy persistence keys 2–9; terrain remains key 1. Clay normalizes each field and sends only on Save, preserving wrist-selected terrain at startup.
+- Palettes are Green, Amber, Ice blue, Monochrome. Bold time lives in a quiet horizontal mask. Scale labels move outward and are omitted whole when their rectangles would cross the mask during tilt.
+- Flight speed follows a symmetric smooth envelope; tilt is filtered. Off creates no animation timer. Short uses 50 frames; Standard uses 112 frames at 25 FPS (approximately 2 and 4.5 seconds). Every finished flight restores its initial scroll phase and zeroes pitch/roll.
+- Simulated altitude is labeled SIM. Optional date replaces lower-center steps. The optional course line is illustrative; no terrain or navigation is georeferenced.

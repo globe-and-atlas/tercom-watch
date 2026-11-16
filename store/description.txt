@@ -1,7 +1,9 @@
-TERCOM is a 1970s vector CRT-inspired terrain watchface for Pebble Time 2. Its green wireframe landscape sits beneath a yellow flight-path reticle and a large digital clock.
+Tap your wrist and fly over the terrain. TERCOM brings a CRT-inspired wireframe flight instrument to Pebble Time 2, Pebble Round 2, and Pebble 2.
 
-Choose from five terrain tracks: Crags, Canyon, Dunes, Caldera, and Alpine. Crags and Alpine have finer wireframe detail. A quick double wrist tap cycles tracks and saves the selection. A single tap starts a brief forward-flight animation that returns to its resting view. The clock updates each minute while idle.
+Choose Green phosphor, Amber terminal, Ice blue, or Monochrome on color watches. Pebble 2 uses a high-contrast monochrome wireframe. Explore Crags, a winding Canyon, Dunes, a volcanic Caldera, and layered Alpine ridges. Green remains the default.
 
-The terrain and pitch ladder respond to wrist tilt during flight mode. The time follows your 12/24-hour setting. The lower bar shows compass heading when available, daily steps, and battery percentage. The ALT figure is a stylized value derived from steps; it is not a measured altitude.
+On the watch, a single wrist tap starts a temporary flight. A rapid double tap changes tracks when enabled. Flight returns to the exact resting terrain position. In the phone settings, choose Flight Off, Short (2 seconds), or Standard (about 4.5 seconds), adjust tilt response, disable double-tap switching, or choose a track directly.
 
-The animated preview cycles through the five terrain tracks. On the watch, tracks change only when you double tap. Compatible with Pebble Time 2 (Emery).
+The upper-right readout can show explicitly simulated altitude (SIM), daily steps, compass heading, battery, or nothing. Choose an optional ISO, US, or European date in the lower center, daily steps, or an empty center. A dashed illustrative course line is optional. SIM shows a fictional altitude derived from steps. The landscapes and course lines are illustrative. The heading shows --- when a compass reading is unavailable.
+
+Time follows the watch's 12/24-hour setting and updates each minute while idle. The preview opens in flight.

@@ -2,6 +2,14 @@
 
 #include <pebble.h>
 
+#if defined(PBL_ROUND)
+#define SCREEN_WIDTH 260
+#define SCREEN_HEIGHT 260
+#elif defined(PBL_BW)
+#define SCREEN_WIDTH 144
+#define SCREEN_HEIGHT 168
+#endif
+
 #ifndef SCREEN_WIDTH
 #define SCREEN_WIDTH 200
 #endif

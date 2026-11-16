@@ -59,3 +59,22 @@ Record deterministic errors, root causes, and fixes here.
 - Cause: the release upload did not apply the `--description` text to the existing listing.
 - Fix: saved the updated description directly in the listing editor.
 - Graduated-to: `knowledge/procedural/release_tercom.md`.
+
+## 2026-10-27 — Dunes negative index
+- Error: deeper rows could index `s_cross` with a negative value.
+- Cause: C remainder preserves a negative dividend's sign; adding 16 was insufficient for row 11.
+- Fix: normalize remainder with `(value % 8 + 8) % 8`. The pure terrain model is exercised across 5 terrains × 21 columns × 12 rows × 8 phases under address/undefined sanitizers.
+- Graduated-to: host model tests and `terrain_model.c`.
+
+## 2026-10-27 — Clock mask clipped scales
+- Error: enlarged clock window cut off digits in nearby scale labels.
+- Fix: move labels outside the window and reject complete text rectangles that intersect it during tilt. Native resting and tilted captures verified the clearance.
+
+## 2026-10-27 — Release upload requires separate gallery verification
+- Observation: CLI reported five uploaded screenshots but the public gallery still served the previous images. Replaced gallery through the dashboard; public propagation must be checked separately.
+- Prevention: compare decoded public media against the intended release files before claiming screenshot publication.
+- The publish command rebuilds internally, so scrub TERCOM_TEST_* for that subprocess as well as the initial production build.
+
+## 2026-11-09 — Private Diorite emulator startup and clock baseline
+
+Opening the protocol socket immediately after launching private Diorite QEMU led to a watch-version timeout. Wait on the separate debug serial stream for the firmware startup marker before the first Pebble command. Set the emulator clock before launching TERCOM. Setting it after launch can leave the first resting frame on a stale watch minute until an interaction refreshes telemetry. Both changes produced a stable native rest/flight/rest replay.

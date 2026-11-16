@@ -1,0 +1,179 @@
+{
+  "url": "https://apps.repebble.com/tercom_c6f081e1607448bf92df7de4",
+  "app_id": "c6f081e1607448bf92df7de4",
+  "version": "1.2.0",
+  "pbw_sha256": "3c2076e3d6774d9ad9b308886defb2a6cc60dc7a2182103529d47a37a4149d8c",
+  "response": {
+    "success": true,
+    "release": {
+      "id": "771646f383e441ac9cca23e1",
+      "app_id": "c6f081e1607448bf92df7de4",
+      "has_pbw": true,
+      "capabilities": [
+        "health",
+        "configurable"
+      ],
+      "js_md5": null,
+      "published_date": "2026-11-09T14:54:05.647",
+      "release_notes": "Adds Pebble Round 2 and Pebble 2 support, with a HUD fitted to the round display and a cleaner monochrome wireframe for Pebble 2.",
+      "version": "1.2.0",
+      "compatibility": [
+        "emery",
+        "gabbro",
+        "diorite"
+      ],
+      "is_published": true,
+      "pbw_url": "/api/assets/pbw/c6f081e1607448bf92df7de4/1.2.0/0751207a-f765-471e-a8b4-f7f0fad8c4b1.pbw",
+      "pbw_size": 682150,
+      "created_at": "2026-11-09T14:54:05.647",
+      "settings_page_url": null,
+      "settings_page_final_url": null,
+      "settings_page_http_status": null,
+      "settings_page_check_status": null,
+      "settings_page_last_error": null,
+      "settings_page_checked_at": null,
+      "companion_ios_url": null,
+      "companion_ios_final_url": null,
+      "companion_ios_http_status": null,
+      "companion_ios_check_status": null,
+      "companion_ios_last_error": null,
+      "companion_ios_checked_at": null,
+      "companion_android_url": null,
+      "companion_android_final_url": null,
+      "companion_android_http_status": null,
+      "companion_android_check_status": null,
+      "companion_android_last_error": null,
+      "companion_android_checked_at": null,
+      "appinfo_json": {
+        "name": "tercom-watch",
+        "uuid": "a05c6357-104a-4090-bba4-0a1cb7606927",
+        "appKeys": {
+          "DATE": 10005,
+          "COURSE": 10007,
+          "FLIGHT": 10001,
+          "PALETTE": 10000,
+          "TERRAIN": 10008,
+          "TOP_FIELD": 10004,
+          "SHOW_STEPS": 10006,
+          "SENSITIVITY": 10002,
+          "SWITCH_TRACKS": 10003
+        },
+        "longName": "TERCOM",
+        "watchapp": {
+          "watchface": true
+        },
+        "resources": {
+          "media": []
+        },
+        "shortName": "TERCOM",
+        "sdkVersion": "3",
+        "companyName": "Daniel Bally",
+        "displayName": "TERCOM",
+        "messageKeys": {
+          "DATE": 10005,
+          "COURSE": 10007,
+          "FLIGHT": 10001,
+          "PALETTE": 10000,
+          "TERRAIN": 10008,
+          "TOP_FIELD": 10004,
+          "SHOW_STEPS": 10006,
+          "SENSITIVITY": 10002,
+          "SWITCH_TRACKS": 10003
+        },
+        "capabilities": [
+          "health",
+          "configurable"
+        ],
+        "versionLabel": "1.2.0",
+        "enableMultiJS": true,
+        "targetPlatforms": [
+          "emery",
+          "gabbro",
+          "diorite"
+        ]
+      }
+    },
+    "message": "Release created successfully",
+    "screenshotResults": {
+      "uploaded": [
+        {
+          "platform": "emery",
+          "filename": "emery_01_flight.gif",
+          "url": "/api/assets/screenshots/c6f081e1607448bf92df7de4/emery/5644c91e-7a94-4b71-9837-fdbc248c2ff2.gif"
+        },
+        {
+          "platform": "emery",
+          "filename": "emery_02_crags.gif",
+          "url": "/api/assets/screenshots/c6f081e1607448bf92df7de4/emery/fff210b8-0a73-41c7-a574-5d13e261aedb.gif"
+        },
+        {
+          "platform": "emery",
+          "filename": "emery_03_bank.gif",
+          "url": "/api/assets/screenshots/c6f081e1607448bf92df7de4/emery/2139b2fa-1e01-4fec-b352-612c8d665e95.gif"
+        },
+        {
+          "platform": "emery",
+          "filename": "emery_04_canyon.gif",
+          "url": "/api/assets/screenshots/c6f081e1607448bf92df7de4/emery/d9d908da-9bca-456c-b6b8-28311f3df858.gif"
+        },
+        {
+          "platform": "emery",
+          "filename": "emery_05_alpine.gif",
+          "url": "/api/assets/screenshots/c6f081e1607448bf92df7de4/emery/f58c3756-824e-497a-8622-0bacd59ca054.gif"
+        },
+        {
+          "platform": "gabbro",
+          "filename": "gabbro_01_flight.gif",
+          "url": "/api/assets/screenshots/c6f081e1607448bf92df7de4/gabbro/806b9f0c-d5b2-47fd-b38a-3e64ca74937c.gif"
+        },
+        {
+          "platform": "gabbro",
+          "filename": "gabbro_02_crags.gif",
+          "url": "/api/assets/screenshots/c6f081e1607448bf92df7de4/gabbro/17f0b072-8024-4b5f-8087-8d005d295ba9.gif"
+        },
+        {
+          "platform": "gabbro",
+          "filename": "gabbro_03_bank.gif",
+          "url": "/api/assets/screenshots/c6f081e1607448bf92df7de4/gabbro/49ce785b-9247-4cd5-b3c4-33d65240dfd0.gif"
+        },
+        {
+          "platform": "gabbro",
+          "filename": "gabbro_04_canyon.gif",
+          "url": "/api/assets/screenshots/c6f081e1607448bf92df7de4/gabbro/7cba4ca2-dff1-4af3-adba-27c9f92677e7.gif"
+        },
+        {
+          "platform": "gabbro",
+          "filename": "gabbro_05_alpine.gif",
+          "url": "/api/assets/screenshots/c6f081e1607448bf92df7de4/gabbro/6e474ff3-ce78-4171-bad4-1816de05ba3e.gif"
+        },
+        {
+          "platform": "diorite",
+          "filename": "diorite_01_flight.gif",
+          "url": "/api/assets/screenshots/c6f081e1607448bf92df7de4/diorite/5151d64a-73e6-4b6c-a0c8-f802266116f1.gif"
+        },
+        {
+          "platform": "diorite",
+          "filename": "diorite_02_crags.gif",
+          "url": "/api/assets/screenshots/c6f081e1607448bf92df7de4/diorite/dea25571-41ad-4d0e-8623-40e5f19ddce4.gif"
+        },
+        {
+          "platform": "diorite",
+          "filename": "diorite_03_bank.gif",
+          "url": "/api/assets/screenshots/c6f081e1607448bf92df7de4/diorite/c32de009-5d59-40b5-962a-504cb00e73d5.gif"
+        },
+        {
+          "platform": "diorite",
+          "filename": "diorite_04_canyon.gif",
+          "url": "/api/assets/screenshots/c6f081e1607448bf92df7de4/diorite/be61f9b5-265d-46b8-a705-e1f907f4825d.gif"
+        },
+        {
+          "platform": "diorite",
+          "filename": "diorite_05_alpine.gif",
+          "url": "/api/assets/screenshots/c6f081e1607448bf92df7de4/diorite/0f68ad47-fd0a-41d0-b76e-df5d40b48785.gif"
+        }
+      ],
+      "failed": []
+    }
+  },
+  "public_verified": true
+}
