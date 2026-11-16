@@ -172,3 +172,13 @@ Output: release/TERCOM-1.2.2.pbw (local; no store publication without approval).
 - [x] Host tests pass.
 - [x] The production PBW builds for Emery, Gabbro, and Diorite.
 - [x] Emulator flight restores the resting frame on all three platforms.
+
+### 1.2.2 addition — moving-tape time gauge
+
+- [x] A fixed pointer on each side sits level with the clock centre.
+- [x] The minute tape value at the pointer equals the current minute (within one rung's interpolation).
+- [x] The hour tape value at the pointer equals the current hour plus the minute fraction.
+- [x] The minute tape position changes between two consecutive minutes.
+- [x] Time 2 and Round 2 tape labels do not overlap the clock digits.
+- [x] Pebble 2 draws tape lines and pointers with no tape numbers.
+- [x] Emulator flight restores the resting frame on Emery, Gabbro, and Diorite with the tape.

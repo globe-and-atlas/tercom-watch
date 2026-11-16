@@ -106,71 +106,61 @@ static void draw_altitude_time_gauge(GContext *ctx, GPoint center, int16_t pitch
     if (cur_hour == 0) cur_hour = 12;
   }
 
-  // Right side 5-minute increments:
-  // First half of hour (0-29 min): 25, 20, 15, 10, 05, 00
-  // Second half of hour (30-59 min): 55, 50, 45, 40, 35, 30
-  int min_base = (telemetry->minutes >= 30) ? 30 : 0;
-  static const int s_min_offsets[6] = { 25, 20, 15, 10, 5, 0 };
+  // Moving tapes: each scale scrolls so the current time rests on a fixed
+  // pointer level with the clock. Later values sit higher, like an altitude tape.
+  // Minutes move 2.8 px per minute; hours creep up through the hour.
+  const int now_y = 62, rung = 14;
+  int min_slide = (telemetry->minutes % 5) * rung / 5;
+  int hour_slide = telemetry->minutes * rung / 60;
+  int min_base = telemetry->minutes - telemetry->minutes % 5;
 
-  // 6 horizontal ladder lines (spaced by 14 pixels from y=26 to y=96)
-  static const int16_t s_line_y[6] = { 26, 40, 54, 68, 82, 96 };
+  for (int k = -3; k <= 3; k++) {
+    for (int side = -1; side <= 1; side += 2) {
+      int design_y = now_y - k * rung + (side < 0 ? hour_slide : min_slide);
+      if (design_y < 20 || design_y > 114) continue;
+      int16_t y = hud_y(design_y) + pitch_offset;
 
-  for (int i = 0; i < 6; i++) {
-    int16_t y = hud_y(s_line_y[i]) + pitch_offset;
-    if (y < hud_y(20) || y > hud_y(114)) {
-      continue;
-    }
-
-    // Left hour label: Line 2 corresponds to current hour
-    int line_hour = cur_hour + (2 - i);
-    if (!telemetry->is_24h) {
-      while (line_hour <= 0) line_hour += 12;
-      while (line_hour > 12) line_hour -= 12;
-    } else {
-      while (line_hour < 0) line_hour += 24;
-      while (line_hour >= 24) line_hour -= 24;
-    }
-
-    char hour_str[8];
-    snprintf(hour_str, sizeof(hour_str), "%02d", line_hour);
-
-    // Right minute label (5-minute increment)
-    int line_min = min_base + s_min_offsets[i];
-    char min_str[8];
-    snprintf(min_str, sizeof(min_str), "%02d", line_min);
-
-    // Left rung: outer tick to inner segment
-    GPoint l_outer = rotate_around_center(GPoint(center.x - hud_x(46), y), center, roll_angle);
-    GPoint l_inner = rotate_around_center(GPoint(center.x - hud_x(22), y), center, roll_angle);
-    GPoint l_tick  = rotate_around_center(GPoint(center.x - hud_x(46), y - 3), center, roll_angle);
-    graphics_draw_line(ctx, l_outer, l_inner);
-    graphics_draw_line(ctx, l_outer, l_tick);
-
-    // Right rung: inner segment to outer tick
-    GPoint r_inner = rotate_around_center(GPoint(center.x + hud_x(22), y), center, roll_angle);
-    GPoint r_outer = rotate_around_center(GPoint(center.x + hud_x(46), y), center, roll_angle);
-    GPoint r_tick  = rotate_around_center(GPoint(center.x + hud_x(46), y - 3), center, roll_angle);
-    graphics_draw_line(ctx, r_inner, r_outer);
-    graphics_draw_line(ctx, r_outer, r_tick);
+      GPoint outer = rotate_around_center(GPoint(center.x + side * hud_x(46), y), center, roll_angle);
+      GPoint inner = rotate_around_center(GPoint(center.x + side * hud_x(22), y), center, roll_angle);
+      GPoint tick  = rotate_around_center(GPoint(center.x + side * hud_x(46), y - 3), center, roll_angle);
+      graphics_draw_line(ctx, outer, inner);
+      graphics_draw_line(ctx, outer, tick);
 
 #ifdef PBL_BW
-    if (i % 2 == 0) continue;
-    const int left_label_offset = 88;
-#else
-    const int left_label_offset = 82;
+      continue;  // Pebble 2's clock fills the width: tape lines and pointers only
 #endif
-    // Draw Left Hour Label
-    GPoint l_txt_pos = rotate_around_center(GPoint(center.x - hud_x(left_label_offset), y - 7), center, roll_angle);
-    if (label_clear(l_txt_pos)) graphics_draw_text(ctx, hour_str, s_font_small,
-                       GRect(l_txt_pos.x, l_txt_pos.y, 22, 14),
-                       GTextOverflowModeWordWrap, GTextAlignmentRight, NULL);
-
-    // Draw Right Minute Label (5-min increments)
-    GPoint r_txt_pos = rotate_around_center(GPoint(center.x + hud_x(60), y - 7), center, roll_angle);
-    if (label_clear(r_txt_pos)) graphics_draw_text(ctx, min_str, s_font_small,
-                       GRect(r_txt_pos.x, r_txt_pos.y, 22, 14),
-                       GTextOverflowModeWordWrap, GTextAlignmentLeft, NULL);
+      char label[8];
+      if (side < 0) {
+        int line_hour = cur_hour + k;
+        if (!telemetry->is_24h) {
+          while (line_hour <= 0) line_hour += 12;
+          while (line_hour > 12) line_hour -= 12;
+        } else {
+          while (line_hour < 0) line_hour += 24;
+          while (line_hour >= 24) line_hour -= 24;
+        }
+        snprintf(label, sizeof(label), "%02d", line_hour);
+      } else {
+        snprintf(label, sizeof(label), "%02d", ((min_base + 5 * k) % 60 + 60) % 60);
+      }
+      int label_x = side < 0 ? -hud_x(82) : hud_x(60);
+      GPoint pos = rotate_around_center(GPoint(center.x + label_x, y - 7), center, roll_angle);
+      if (label_clear(pos)) graphics_draw_text(ctx, label, s_font_small, GRect(pos.x, pos.y, 22, 14),
+          GTextOverflowModeWordWrap, side < 0 ? GTextAlignmentRight : GTextAlignmentLeft, NULL);
+    }
   }
+
+  // "Now" pointers on the outer edge of each tape, in the clock's colour.
+  graphics_context_set_stroke_color(ctx, s_colors.reticle);
+  int16_t now_px = hud_y(now_y) + pitch_offset;
+  for (int side = -1; side <= 1; side += 2) {
+    GPoint tip  = rotate_around_center(GPoint(center.x + side * hud_x(89), now_px), center, roll_angle);
+    GPoint back_top = rotate_around_center(GPoint(center.x + side * hud_x(95), now_px - 4), center, roll_angle);
+    GPoint back_bot = rotate_around_center(GPoint(center.x + side * hud_x(95), now_px + 4), center, roll_angle);
+    graphics_draw_line(ctx, back_top, tip);
+    graphics_draw_line(ctx, tip, back_bot);
+  }
+  graphics_context_set_stroke_color(ctx, s_colors.ladder);
 
   // Main Horizon Baseline at y = 138
   int16_t horiz_y = hud_y(138) + pitch_offset;

@@ -5,7 +5,7 @@ A native watchface for Pebble Time 2, Pebble Round 2, and Pebble 2 with five pro
 ## Features
 
 - Four palettes: Green phosphor (default), Amber terminal, Ice blue, Monochrome on color watches. Pebble 2 uses a simplified monochrome mesh.
-- Bolder clock with complete, dimmer scale labels outside its window.
+- Bolder clock flanked by moving hour and minute tapes: yellow pointers level with the clock mark the current time, and the tapes slide every minute. Pebble 2 shows tape lines and pointers without numbers.
 - Crags, winding Canyon, Dunes, Caldera, and layered Alpine terrains.
 - Flight Off, Short (2 seconds), or Standard (about 4.5 seconds); four tilt responses including Off.
 - Optional double-tap track switching; manual track selection in phone settings.
