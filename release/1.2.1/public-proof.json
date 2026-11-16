@@ -1,0 +1,30 @@
+{
+  "observed_at": "2026-11-15",
+  "source": "public detail page HTML + release response",
+  "description": "Tap your wrist and fly over the terrain.",
+  "download": "https://appstore-api.repebble.com/api/assets/pbw/c6f081e1607448bf92df7de4/1.2.1/7b42d85e-bf27-49f8-a072-3a6297f11c1a.pbw",
+  "galleries": {
+    "emery": [
+      "https://appstore-api.repebble.com/api/assets/screenshots/c6f081e1607448bf92df7de4/emery/6dc40e32-69fc-4b2a-b6ba-af059e0427fa.gif",
+      "https://appstore-api.repebble.com/api/assets/screenshots/c6f081e1607448bf92df7de4/emery/56cbe20f-7e65-42d4-a656-5c7992b51771.gif",
+      "https://appstore-api.repebble.com/api/assets/screenshots/c6f081e1607448bf92df7de4/emery/dbf4446e-e161-484f-9be4-0ecef62ef0ce.gif",
+      "https://appstore-api.repebble.com/api/assets/screenshots/c6f081e1607448bf92df7de4/emery/e71ccb98-478a-4c0d-9f54-3c43126fc5c4.gif",
+      "https://appstore-api.repebble.com/api/assets/screenshots/c6f081e1607448bf92df7de4/emery/0e2da6be-120f-4f62-9e90-9deee4d975b8.gif"
+    ],
+    "gabbro": [
+      "https://appstore-api.repebble.com/api/assets/screenshots/c6f081e1607448bf92df7de4/gabbro/88efb253-7a58-4a2e-8f28-9b7689b2a3ba.gif",
+      "https://appstore-api.repebble.com/api/assets/screenshots/c6f081e1607448bf92df7de4/gabbro/610df403-7b25-4c01-b954-79669b7617e3.gif",
+      "https://appstore-api.repebble.com/api/assets/screenshots/c6f081e1607448bf92df7de4/gabbro/e5b7208b-6aac-4ff4-b9da-605ba77e77a4.gif",
+      "https://appstore-api.repebble.com/api/assets/screenshots/c6f081e1607448bf92df7de4/gabbro/966ce758-55de-49e4-945a-c7cfa263dad1.gif",
+      "https://appstore-api.repebble.com/api/assets/screenshots/c6f081e1607448bf92df7de4/gabbro/93566929-c3e4-4dc6-a25f-7c0f3acf635b.gif"
+    ],
+    "diorite": [
+      "https://appstore-api.repebble.com/api/assets/screenshots/c6f081e1607448bf92df7de4/diorite/47a7b5ff-9a82-4791-9953-4d57553a2c08.gif",
+      "https://appstore-api.repebble.com/api/assets/screenshots/c6f081e1607448bf92df7de4/diorite/970c5b91-030d-4c6a-9392-bb6fb372a565.gif",
+      "https://appstore-api.repebble.com/api/assets/screenshots/c6f081e1607448bf92df7de4/diorite/39225445-7ddd-485c-8b73-93e6c7ac4ada.gif",
+      "https://appstore-api.repebble.com/api/assets/screenshots/c6f081e1607448bf92df7de4/diorite/19cb0d76-9353-4520-9322-7c107c88324f.gif",
+      "https://appstore-api.repebble.com/api/assets/screenshots/c6f081e1607448bf92df7de4/diorite/32d6fdc0-235c-4233-83d5-f674bab380c4.gif"
+    ]
+  },
+  "pbw_sha256": "fd085b74a1b586f366be349694502b9bfa7f1a3ebae3dbf42135b543f1ab2f43"
+}

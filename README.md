@@ -26,4 +26,4 @@ python3 execution/capture_release.py release/TERCOM-1.2.1.pbw .tmp/release-1.2.1
 
 Build output: `release/TERCOM-1.2.1.pbw`. The build wrapper cleans and removes fixture environment values. Native flight GIFs and screenshots are in `store/listing-1.2.1/`.
 
-Version 1.2.1 is built locally and not yet published. Version 1.2.0 is published at https://apps.repebble.com/tercom_c6f081e1607448bf92df7de4. Physical-watch readability, wrist feel, phone settings flow, and battery cost remain open device checks.
+Version 1.2.1 is published at https://apps.repebble.com/tercom_c6f081e1607448bf92df7de4. Physical-watch readability, wrist feel, phone settings flow, and battery cost remain open device checks.
